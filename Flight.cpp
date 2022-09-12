@@ -16,6 +16,15 @@ Flight::Flight(const AirCanadaFlight &canada_flight)
     this->from= canada_flight.get_from();
     this->to= canada_flight.get_to();
 }
+Flight::Flight(const TurkishFlight &turkish_flight)
+{
+    this->airline= "Turkish";
+    this->cost= turkish_flight.get_cost();
+    this->datetime_from= turkish_flight.get_datetime_from();
+    this->datetime_to= turkish_flight.get_datetime_to();
+    this->from= turkish_flight.get_from();
+    this->to= turkish_flight.get_to();
+}
 Flight::~Flight(){}
 
 
@@ -89,12 +98,55 @@ flight_::AirTurkish::AirTurkish(std::string from="", std::string to="", std::str
             int children=0, int adults=0):from(from),to(to),datetime_from(datetime_from),
                                         datetime_to(datetime_to),infants(infants),
                                         children(children),adults(adults){}
-bool flight_::AirTurkish::reserve(const Flight& flight){}
-bool flight_::AirTurkish::cancel_reserve(const Flight& flight){}
-void flight_::AirTurkish::set_from_to_info(std::string datetime_from, std::string datetime_to, std::string from, std::string to) {}
-void flight_::AirTurkish::set_passengers_info(int infants, int children, int adults){}
-std::vector<Flight> flight_::AirTurkish::get_available_flights() const {}
-std::vector<std::string> flight_::AirTurkish::get_pay_info(const Flight& flight) {}
+//Set the flight's date and location
+void flight_::AirTurkish::set_from_to_info(std::string datetime_from, std::string datetime_to,
+                                        std::string from, std::string to) 
+{
+    this->datetime_from= datetime_from;
+    this->datetime_to= datetime_to;
+    this->from= from;
+    this->to= to;
+}
+//Set the passengers count
+void flight_::AirTurkish::set_passengers_info(int infants, int children, int adults)
+{
+    this->adults= adults;
+    this->children= children;
+    this->infants= infants;
+}
+std::vector<Flight> flight_::AirTurkish::get_available_flights() const 
+{
+    TurkishAirlinesOnlineAPI turkish_api{};
+    turkish_api.SetFromToInfo(this->datetime_from,this->datetime_to,this->from,this->to);
+    turkish_api.SetPassengersInfo(this->infants,this->children,this->adults);
+
+    auto turkish_flights {turkish_api.GetAvailableFlights()};
+    std::vector<Flight> flights{};
+
+    for (auto &turkish_flight : turkish_flights)
+    {
+        flights.push_back(Flight{turkish_flight});
+    }
+    return flights;
+}
+bool flight_::AirTurkish::reserve(const Flight& flight)
+{
+    //reserve from AirCanadaOnlineAPI
+    return TurkishAirlinesOnlineAPI::ReserveFlight(TurkishCustomerInfo{}, TurkishFlight{flight.cost,flight.datetime_from,
+                                                                flight.datetime_to,flight.from,flight.to});
+}
+bool flight_::AirTurkish::cancel_reserve(const Flight& flight)
+{
+    //cancel reserve from AirCanadaOnlineAPI
+    return TurkishAirlinesOnlineAPI::CancelReserveFlight(TurkishCustomerInfo{}, TurkishFlight{flight.cost,flight.datetime_from,
+                                                                flight.datetime_to,flight.from,flight.to});
+}
+std::vector<std::string> flight_::AirTurkish::get_pay_info(const Flight& flight) 
+{
+    return TurkishAirlinesOnlineAPI::GetPaymentInfo(TurkishCustomerInfo{},
+                                                    TurkishFlight{flight.cost,flight.datetime_from,
+                                                    flight.datetime_to,flight.from,flight.to});    
+}
 flight_::AirTurkish::~AirTurkish(){}
 
 

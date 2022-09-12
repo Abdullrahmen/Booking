@@ -18,6 +18,7 @@ class Flight
         Flight(std::string airline="", double cost=0.0, std::string datetime_from="",
                 std::string datetime_to="", std::string from="", std::string to="");
         Flight(const online_airlines_api::AirCanadaFlight &canada_flight);
+        Flight(const online_airlines_api::TurkishFlight &turkish_flight);
         ~Flight();
     };
 
