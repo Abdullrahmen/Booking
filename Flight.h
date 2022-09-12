@@ -6,10 +6,19 @@
 //A flight details
 class Flight
     {
+    public:
         std::string airline;
         double cost;
         std::string datetime_from;
-        std::string datetime_to;    
+        std::string datetime_to;
+        std::string from;
+        std::string to;
+        
+
+        Flight(std::string airline="", double cost=0.0, std::string datetime_from="",
+                std::string datetime_to="", std::string from="", std::string to="");
+        Flight(const online_airlines_api::AirCanadaFlight &canada_flight);
+        ~Flight();
     };
 
 //Flight classes details (user doesn't need it)
@@ -123,13 +132,13 @@ namespace flight_
     };
 }
 
-//Airlines factory
+//Airlines abstract factory
 class FlightFactory
 {
 private:
     static std::string airlines[2];
 public:
-    static flight_::IFlight* create_airlines_helper(std::string flight);
+    static flight_::IFlight* create_airlines_helper(const std::string& airline);
     static const std::string* get_airlines();
 };
 #endif

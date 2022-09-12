@@ -10,12 +10,26 @@ namespace online_airlines_api
     //AirCanada airlines online API
     class AirCanadaFlight
     {
+    private:
         double price;
         std::string date_time_from;
         std::string date_time_to;
+        std::string from;
+        std::string to;
+    public:
+        AirCanadaFlight(double price, std::string date_time_from, std::string date_time_to,
+                        std::string from, std::string to);
+        const double& get_price() const;
+        const std::string& get_date_time_from() const;
+        const std::string& get_date_time_to() const;
+        const std::string& get_from() const;
+        const std::string& get_to() const;
+        ~AirCanadaFlight();
     };
+
     class AirCanadaOnlineAPI
     {
+    public:
         static std::vector<online_airlines_api::AirCanadaFlight> GetFLights(std::string from, std::string to,
                                                 std::string from_date, std::string to_date,
                                                  int adults, int children);
@@ -27,9 +41,11 @@ namespace online_airlines_api
     //Turkish airlines online API
     class TurkishFlight
     {
+    private:
         double cost;
         std::string datetime_from;
         std::string datetime_to;
+    public:
     };
     class TurkishCustomerInfo{};
     class TurkishAirlinesOnlineAPI
