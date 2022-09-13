@@ -3,7 +3,7 @@
 
 #include "online_APIs\\FlightOnlineAPI.h"
 
-//A flight details
+//General Flight
 class Flight
     {
     public:

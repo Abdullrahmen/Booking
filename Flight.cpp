@@ -203,3 +203,7 @@ flight_::IFlight* FlightFactory::create_airlines_helper(const std::string& airli
         throw;
     }
 }
+const std::string* FlightFactory::get_airlines()
+{
+    return &airlines[0];
+}
