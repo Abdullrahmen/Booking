@@ -56,14 +56,35 @@ void flight_::AirCanada::set_passengers_info(int infants, int children, int adul
 //After setting all the search info you can get the available flights
 std::vector<Flight> flight_::AirCanada::get_available_flights() const 
 {
-    //Get flights from the CanadaAirlines API
-    auto canada_flights= AirCanadaOnlineAPI::GetFLights(this->from, this->to, this->datetime_from,
-                                                        this->datetime_to, this->adults, this->children);
-    //Convert CanadaFlight to Flight
-    std::vector<Flight> flights{};
-    for (auto &canada_flight : canada_flights)
-    {flights.push_back(Flight{canada_flight});}
-    return flights;
+    try
+    {
+        //invalid arguments
+        if(this->adults<=0)
+            throw std::invalid_argument("Adults in a flight can't be <=0");
+        if(this->datetime_from=="")
+            throw std::invalid_argument("Please set from date/time before call get_available_flights");
+        if(this->datetime_to=="")
+            throw std::invalid_argument("Please set to date/time before call get_available_flights");
+        if(this->from=="")
+            throw std::invalid_argument("Please set from location before call get_available_flights");
+        if(this->to=="")
+            throw std::invalid_argument("Please set to location before call get_available_flights");
+        
+
+        //Get flights from the CanadaAirlines API
+        auto canada_flights= AirCanadaOnlineAPI::GetFLights(this->from, this->to, this->datetime_from,
+                                                            this->datetime_to, this->adults, this->children);
+        //Convert CanadaFlight to Flight
+        std::vector<Flight> flights{};
+        for (auto &canada_flight : canada_flights)
+        {flights.push_back(Flight{canada_flight});}
+        return flights;
+    }
+    catch(const std::invalid_argument& e)
+    {
+        std::cerr << e.what() << '\n';
+        throw;
+    }
 }
 //Reserve a flight and return true if succesfully reserved
 bool flight_::AirCanada::reserve(const Flight& flight)
