@@ -3,13 +3,13 @@ using namespace online_airlines_api;
 //////////////////
 //Flight Class
 //////////////////
-Flight::Flight(const std::string& airline, const double& cost,const std::string& datetime_from,
+Flight::Flight(const std::string& airlines, const double& cost,const std::string& datetime_from,
             const std::string &datetime_to, const std::string& from, const std::string& to):
-            airline(airline),cost(cost),datetime_from(datetime_from),
+            airlines(airlines),cost(cost),datetime_from(datetime_from),
             datetime_to(datetime_to),from(from),to(to){}
 Flight::Flight(const AirCanadaFlight &canada_flight)
 {
-    this->airline= "Canada";
+    this->airlines= "Canada";
     this->cost= canada_flight.get_price();
     this->datetime_from= canada_flight.get_date_time_from();
     this->datetime_to= canada_flight.get_date_time_to();
@@ -18,7 +18,7 @@ Flight::Flight(const AirCanadaFlight &canada_flight)
 }
 Flight::Flight(const TurkishFlight &turkish_flight)
 {
-    this->airline= "Turkish";
+    this->airlines= "Turkish";
     this->cost= turkish_flight.get_cost();
     this->datetime_from= turkish_flight.get_datetime_from();
     this->datetime_to= turkish_flight.get_datetime_to();
@@ -32,6 +32,7 @@ online_airlines_api::TurkishFlight Flight::to_TurkishFlight() const
 {return TurkishFlight{cost, datetime_from, datetime_to, from, to};}
 
 const double& Flight::get_cost()const {return cost;}
+const std::string& Flight::get_airlines()const {return airlines;}
 const std::string& Flight::get_datetime_from()const {return datetime_from;}
 const std::string& Flight::get_datetime_to()const {return datetime_to;}
 const std::string& Flight::get_from()const {return from;}
@@ -173,21 +174,21 @@ flight_::AirTurkish::~AirTurkish(){}
 //////////////////
 
 std::string FlightFactory::airlines[2] = {"Canada","Turkish"};
-flight_::IFlight* FlightFactory::create_airlines_helper(const std::string& airline)
+flight_::IFlight* FlightFactory::create_airlines_helper(const std::string& airlines)
 {
     try
     {
-        if (airline=="Canada")
+        if (airlines=="Canada")
             return new flight_::AirCanada;
-        else if (airline=="Turkish")
+        else if (airlines=="Turkish")
             return new flight_::AirTurkish;
         else
         {
             std::string error_msg{"FlightFactory class doesn't support \""};
-            error_msg+= airline;
+            error_msg+= airlines;
             error_msg+= "\" airlines\nPlease make sure to choose one of the following supported airlines: \n{";
-            for (auto &airline : airlines)
-            {error_msg+= airline;
+            for (auto &airlines : airlines)
+            {error_msg+= airlines;
             error_msg+= ",  ";}
             error_msg+= "}";
             throw std::invalid_argument(error_msg);

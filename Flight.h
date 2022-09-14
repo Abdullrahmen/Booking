@@ -7,14 +7,14 @@
 class Flight
 {
 private:
-    std::string airline;
+    std::string airlines;
     double cost;
     std::string datetime_from;
     std::string datetime_to;
     std::string from;
     std::string to;
 public:
-    Flight(const std::string& airline="", const double& cost=0.0,const std::string& datetime_from="",
+    Flight(const std::string& airlines="", const double& cost=0.0,const std::string& datetime_from="",
             const std::string &datetime_to="", const std::string& from="", const std::string& to="");
     Flight(const online_airlines_api::AirCanadaFlight &canada_flight);
     Flight(const online_airlines_api::TurkishFlight &turkish_flight);
@@ -26,6 +26,7 @@ public:
 
     //Getters
     const double& get_cost() const;
+    const std::string& get_airlines() const;
     const std::string& get_datetime_from() const;
     const std::string& get_datetime_to() const;
     const std::string& get_from() const;
@@ -152,7 +153,7 @@ private:
     static std::string airlines[2];
 public:
     //Airlines factory method
-    static flight_::IFlight* create_airlines_helper(const std::string& airline);
+    static flight_::IFlight* create_airlines_helper(const std::string& airlines);
     //Supported airlines
     static const std::string* get_airlines();
 };
