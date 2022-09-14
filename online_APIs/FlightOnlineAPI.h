@@ -30,7 +30,6 @@ namespace online_airlines_api
     class AirCanadaOnlineAPI
     {
     public:
-
         static std::vector<AirCanadaFlight> GetFLights(std::string from, std::string to,
                                                 std::string from_date, std::string to_date,
                                                  int adults, int children);
@@ -76,7 +75,7 @@ namespace online_airlines_api
         TurkishAirlinesOnlineAPI();
         void SetFromToInfo(std::string datetime_from, std::string datetime_to, std::string from, std::string to);
         void SetPassengersInfo(int infants, int children, int adults);
-
+        //After setting all infos u can get available flights
         std::vector<TurkishFlight> GetAvailableFlights() const;
         static bool ReserveFlight(const TurkishCustomerInfo& info, const TurkishFlight& flight);
         static bool CancelReserveFlight(const TurkishCustomerInfo& info, const TurkishFlight& flight);
