@@ -1,15 +1,16 @@
 #include "Flight.h"
+#include "Hotel.h"
 int main()
 {    
-    auto flight_pointer{FlightFactory::create_airlines_helper("Turkish")};
-    flight_pointer->set_passengers_info(0,0,0);
-    flight_pointer->set_from_to_info("10/5/2020","11/6/2020","Egypt","Eraq");
-    for (auto &flight : flight_pointer->get_available_flights())
-    {
-        std::cout<<flight.airline<<"  "<<flight.cost<<"  "<<flight.datetime_from<<"  "<<flight.datetime_to<<"  "<<flight.from<<"  "<<flight.to<<"\n";
-    }
+    auto hotel_pointer{HotelFactory::create_hotel_helper("Hilton")};
     
-    delete flight_pointer;
-    flight_pointer = nullptr;
+    for (auto &room : hotel_pointer->find_rooms("","","10/5/2022","15/5/2022",3,2))
+    {
+        std::cout<<hotel_pointer->get_pay_info(room, 5)[0]<<"  ";
+        std::cout<<room.get_hotel()<<"  "<<room.get_room_type()<<"  "<<room.get_date_from()<<"  "<<room.get_date_to()<<"  "<<room.get_cost_per_night()<<"\n";
+    }
+
+    delete hotel_pointer;
+    hotel_pointer = nullptr;
     return 0;
 }
