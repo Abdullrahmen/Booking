@@ -5,22 +5,33 @@
 
 //General Flight
 class Flight
-    {
-    public:
-        std::string airline;
-        double cost;
-        std::string datetime_from;
-        std::string datetime_to;
-        std::string from;
-        std::string to;
-        
+{
+private:
+    std::string airline;
+    double cost;
+    std::string datetime_from;
+    std::string datetime_to;
+    std::string from;
+    std::string to;
+public:
+    Flight(const std::string& airline="", const double& cost=0.0,const std::string& datetime_from="",
+            const std::string &datetime_to="", const std::string& from="", const std::string& to="");
+    Flight(const online_airlines_api::AirCanadaFlight &canada_flight);
+    Flight(const online_airlines_api::TurkishFlight &turkish_flight);
 
-        Flight(std::string airline="", double cost=0.0, std::string datetime_from="",
-                std::string datetime_to="", std::string from="", std::string to="");
-        Flight(const online_airlines_api::AirCanadaFlight &canada_flight);
-        Flight(const online_airlines_api::TurkishFlight &turkish_flight);
-        ~Flight();
-    };
+    //to AirCanadaFlight class
+    online_airlines_api::AirCanadaFlight to_AirCanadaFlight() const;
+    //to TurkishFlight class
+    online_airlines_api::TurkishFlight to_TurkishFlight() const;
+
+    //Getters
+    const double& get_cost() const;
+    const std::string& get_datetime_from() const;
+    const std::string& get_datetime_to() const;
+    const std::string& get_from() const;
+    const std::string& get_to() const;
+    ~Flight();
+};
 
 //Flight classes details (user doesn't need it)
 namespace flight_
@@ -137,9 +148,12 @@ namespace flight_
 class FlightFactory
 {
 private:
+    //Supported airlines
     static std::string airlines[2];
 public:
+    //Airlines factory method
     static flight_::IFlight* create_airlines_helper(const std::string& airline);
+    //Supported airlines
     static const std::string* get_airlines();
 };
 #endif

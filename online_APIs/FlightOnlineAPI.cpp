@@ -8,6 +8,7 @@ Canada Airlines
 //////////////////
 //AirCanadaOnlineAPI Class
 //////////////////
+
 std::vector<AirCanadaFlight> AirCanadaOnlineAPI::GetFLights(std::string from, std::string to,
                                                 std::string from_date, std::string to_date,
                                                 int adults, int children)
@@ -34,6 +35,7 @@ std::vector<std::string> AirCanadaOnlineAPI::GetPayInfo(const online_airlines_ap
 //////////////////
 //AirCanadaFlight Class
 //////////////////
+
 AirCanadaFlight::AirCanadaFlight(double price, std::string date_time_from, std::string date_time_to,
                                 std::string from, std::string to):
     price(price),date_time_from(date_time_from),date_time_to(date_time_to),from(from),to(to){}
@@ -54,6 +56,7 @@ Turkish Airlines
 //////////////////
 //TurkishFlight Class
 //////////////////
+
 TurkishFlight::TurkishFlight(double cost, std::string datetime_from, std::string datetime_to,
                         std::string from, std::string to):
                         cost(cost),datetime_from(datetime_from),datetime_to(datetime_to),from(from),to(to){}
@@ -68,6 +71,7 @@ TurkishFlight::~TurkishFlight(){}
 //////////////////
 //TurkishAirlinesOnlineAPI Class
 //////////////////
+
 TurkishAirlinesOnlineAPI::TurkishAirlinesOnlineAPI():from(""),to(""),datetime_from(""),
                                             datetime_to(""),infants(0),
                                             children(0),adults(0){}
@@ -88,7 +92,6 @@ void TurkishAirlinesOnlineAPI::SetPassengersInfo(int infants, int children, int 
     this->infants= infants;
 }
 
-//After setting all infos u can get available flights
 std::vector<TurkishFlight> TurkishAirlinesOnlineAPI::GetAvailableFlights() const
 {
     std::vector<TurkishFlight> flights{};
