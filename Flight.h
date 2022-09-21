@@ -16,6 +16,7 @@ private:
 public:
     Flight(const std::string& airlines="", const double& cost=0.0,const std::string& datetime_from="",
             const std::string &datetime_to="", const std::string& from="", const std::string& to="");
+    //Castings
     Flight(const online_airlines_api::AirCanadaFlight &canada_flight);
     Flight(const online_airlines_api::TurkishFlight &turkish_flight);
 

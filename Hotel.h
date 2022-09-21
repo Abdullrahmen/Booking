@@ -11,6 +11,7 @@ private:
 public:
     Room(const std::string& hotel="", const std::string& room_type="", const std::string& date_from="",
         const std::string& date_to="", const double& cost=0.0);
+    //Castings
     Room(const online_hotel_api::HiltonRoom& room);
     Room(const online_hotel_api::MarriottFoundRoom& room);
     //to HiltonRoom class

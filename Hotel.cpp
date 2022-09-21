@@ -7,25 +7,18 @@ using namespace hotel_;
 Room::Room(const std::string& hotel, const std::string& room_type, const std::string& date_from,
             const std::string& date_to, const double& cost):
             hotel(hotel),room_type(room_type),date_from(date_from),date_to(date_to),cost_per_night(cost){}
-Room::Room(const online_hotel_api::HiltonRoom& room)
-{
-    this->hotel= "Hilton";
-    this->room_type= room.get_room_type();
-    this->date_from= room.get_date_from();
-    this->date_to= room.get_date_to();
-    this->cost_per_night= room.get_cost_per_night();
-}
-Room::Room(const online_hotel_api::MarriottFoundRoom& room)
-{
-    this->hotel= "Mariott";
-    this->room_type= room.get_room_type();
-    this->date_from= room.get_date_from();
-    this->date_to= room.get_date_to();
-    this->cost_per_night= room.get_cost_per_night();
-}
+
+Room::Room(const online_hotel_api::HiltonRoom& room):
+    hotel("Hilton"), room_type(room.get_room_type()), date_from(room.get_date_from()),
+    date_to(room.get_date_to()), cost_per_night(room.get_cost_per_night()){}
+
+Room::Room(const online_hotel_api::MarriottFoundRoom& room):
+    hotel("Mariott"), room_type(room.get_room_type()), date_from(room.get_date_from()),
+    date_to(room.get_date_to()), cost_per_night(room.get_cost_per_night()){}
 
 online_hotel_api::HiltonRoom Room::to_HiltonRoom() const
 {return online_hotel_api::HiltonRoom{room_type, date_from, date_to, cost_per_night};}
+
 online_hotel_api::MarriottFoundRoom Room::to_MarriottFoundRoom() const
 {return online_hotel_api::MarriottFoundRoom{room_type, date_from, date_to, cost_per_night};}
 
@@ -123,4 +116,8 @@ IHotel* HotelFactory::create_hotel_helper(const std::string& hotel)
         std::cerr << e.what() << '\n';
         throw;
     } 
+}
+const std::string* HotelFactory::get_hotels()
+{
+    return &hotels[0];
 }

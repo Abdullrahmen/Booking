@@ -7,27 +7,18 @@ Flight::Flight(const std::string& airlines, const double& cost,const std::string
             const std::string &datetime_to, const std::string& from, const std::string& to):
             airlines(airlines),cost(cost),datetime_from(datetime_from),
             datetime_to(datetime_to),from(from),to(to){}
-Flight::Flight(const AirCanadaFlight &canada_flight)
-{
-    this->airlines= "Canada";
-    this->cost= canada_flight.get_price();
-    this->datetime_from= canada_flight.get_date_time_from();
-    this->datetime_to= canada_flight.get_date_time_to();
-    this->from= canada_flight.get_from();
-    this->to= canada_flight.get_to();
-}
-Flight::Flight(const TurkishFlight &turkish_flight)
-{
-    this->airlines= "Turkish";
-    this->cost= turkish_flight.get_cost();
-    this->datetime_from= turkish_flight.get_datetime_from();
-    this->datetime_to= turkish_flight.get_datetime_to();
-    this->from= turkish_flight.get_from();
-    this->to= turkish_flight.get_to();
-}
+
+Flight::Flight(const AirCanadaFlight &flight):
+    airlines("Canada"), cost(flight.get_price()), datetime_from(flight.get_date_time_from()),
+    datetime_to(flight.get_date_time_to()),from(flight.get_from()),to(flight.get_to()){}
+
+Flight::Flight(const TurkishFlight &flight):
+    airlines("Turkish"), cost(flight.get_cost()), datetime_from(flight.get_datetime_from()),
+    datetime_to(flight.get_datetime_to()),from(flight.get_from()),to(flight.get_to()){}
 
 online_airlines_api::AirCanadaFlight Flight::to_AirCanadaFlight() const
 {return AirCanadaFlight{cost, datetime_from, datetime_to, from, to};}
+
 online_airlines_api::TurkishFlight Flight::to_TurkishFlight() const
 {return TurkishFlight{cost, datetime_from, datetime_to, from, to};}
 
@@ -123,7 +114,7 @@ flight_::AirTurkish::AirTurkish(std::string from="", std::string to="", std::str
                                         datetime_to(datetime_to),infants(infants),
                                         children(children),adults(adults){}
 void flight_::AirTurkish::set_from_to_info(std::string datetime_from, std::string datetime_to,
-                                        std::string from, std::string to) 
+                                        std::string from, std::string to)
 {
     this->datetime_from= datetime_from;
     this->datetime_to= datetime_to;
