@@ -7,9 +7,11 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${workspaceFolder}\\online_APIs\\*.h",
+                "${workspaceFolder}\\Backend\\online_APIs\\*.h",
+                "${workspaceFolder}\\Backend\\*.h",
                 "${workspaceFolder}\\*.h",
-                "${workspaceFolder}\\online_APIs\\*.cpp",
+                "${workspaceFolder}\\Backend\\online_APIs\\*.cpp",
+                "${workspaceFolder}\\Backend\\*.cpp",
                 "${workspaceFolder}\\*.cpp",
                 "-o",
                 "${workspaceFolder}\\Expedia.exe"
