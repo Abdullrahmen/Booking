@@ -14,10 +14,10 @@ public:
     //Castings
     Room(const online_hotel_api::HiltonRoom& room);
     Room(const online_hotel_api::MarriottFoundRoom& room);
-    //to HiltonRoom class
+
     online_hotel_api::HiltonRoom to_HiltonRoom() const;
-    //to MarriottFoundRoom class
     online_hotel_api::MarriottFoundRoom to_MarriottFoundRoom() const;
+
     //Getters
     const std::string& get_hotel();
     const std::string& get_room_type();
@@ -55,6 +55,7 @@ namespace hotel_
                                             const std::string& date_to,
                                             const int& adults,
                                             const int& children) final;
+        //return company name, money, service info(details of the product) (same as Payment interface - payment info)
         std::vector<std::string> get_pay_info(const Room& room, int number_of_nights) final;
         bool reserve(const Room& room) final;
         bool cancel_reserve(const Room& room) final;
@@ -70,6 +71,7 @@ namespace hotel_
                                             const std::string& date_to,
                                             const int& adults,
                                             const int& children) final;
+        //return company name, money, service info(details of the product) (same as Payment interface - payment info)
         std::vector<std::string> get_pay_info(const Room& room, int number_of_nights) final;
         bool reserve(const Room& room) final;
         bool cancel_reserve(const Room& room) final;

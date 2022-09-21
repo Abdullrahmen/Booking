@@ -1,5 +1,6 @@
 #include "Hotel.h"
 using namespace hotel_;
+using namespace online_hotel_api;
 //////////////////
 //Room Class
 //////////////////
@@ -8,19 +9,19 @@ Room::Room(const std::string& hotel, const std::string& room_type, const std::st
             const std::string& date_to, const double& cost):
             hotel(hotel),room_type(room_type),date_from(date_from),date_to(date_to),cost_per_night(cost){}
 
-Room::Room(const online_hotel_api::HiltonRoom& room):
+Room::Room(const HiltonRoom& room):
     hotel("Hilton"), room_type(room.get_room_type()), date_from(room.get_date_from()),
     date_to(room.get_date_to()), cost_per_night(room.get_cost_per_night()){}
 
-Room::Room(const online_hotel_api::MarriottFoundRoom& room):
+Room::Room(const MarriottFoundRoom& room):
     hotel("Mariott"), room_type(room.get_room_type()), date_from(room.get_date_from()),
     date_to(room.get_date_to()), cost_per_night(room.get_cost_per_night()){}
 
-online_hotel_api::HiltonRoom Room::to_HiltonRoom() const
-{return online_hotel_api::HiltonRoom{room_type, date_from, date_to, cost_per_night};}
+HiltonRoom Room::to_HiltonRoom() const
+{return HiltonRoom{room_type, date_from, date_to, cost_per_night};}
 
-online_hotel_api::MarriottFoundRoom Room::to_MarriottFoundRoom() const
-{return online_hotel_api::MarriottFoundRoom{room_type, date_from, date_to, cost_per_night};}
+MarriottFoundRoom Room::to_MarriottFoundRoom() const
+{return MarriottFoundRoom{room_type, date_from, date_to, cost_per_night};}
 
 const std::string& Room::get_hotel(){return hotel;}
 const std::string& Room::get_room_type(){return room_type;}
@@ -42,20 +43,28 @@ std::vector<Room> HiltonHotel::find_rooms(const std::string& country,
                                             const int& children)
 {
     std::vector<Room> rooms{};
-    for (auto &hilton_room : online_hotel_api::HiltonHotelAPI::SearchRooms(country,city,date_from,date_to,adults,children))
+    for (auto &hilton_room : HiltonHotelAPI::SearchRooms(country,city,date_from,date_to,adults,children))
     {
         rooms.push_back(Room(hilton_room));
     }
     return rooms;
 }
 std::vector<std::string> HiltonHotel::get_pay_info(const Room& room, int number_of_nights)
-{return online_hotel_api::HiltonHotelAPI::GetPaymentInfo(room.to_HiltonRoom(),number_of_nights);}
+{
+    //return company name, money, service info(details of the product) (same as Payment interface - payment info)
+    std::vector<std::string> pay_info{"Hilton Hotel"};
+    for (std::string &i : HiltonHotelAPI::GetPaymentInfo(room.to_HiltonRoom(),number_of_nights))
+    {
+        pay_info.push_back(i);
+    }
+    return pay_info;
+}
 
 bool HiltonHotel::reserve(const Room& room)
-{return online_hotel_api::HiltonHotelAPI::Reserve(room.to_HiltonRoom());}
+{return HiltonHotelAPI::Reserve(room.to_HiltonRoom());}
 
 bool HiltonHotel::cancel_reserve(const Room& room)
-{return online_hotel_api::HiltonHotelAPI::CancelReserve(room.to_HiltonRoom());}
+{return HiltonHotelAPI::CancelReserve(room.to_HiltonRoom());}
 
 
 //////////////////
@@ -70,20 +79,28 @@ std::vector<Room> MarriottHotel::find_rooms(const std::string& country,
                                             const int& children)
 {
     std::vector<Room> rooms{};
-    for (auto &mariott_room : online_hotel_api::MarriottHotelAPI::FindRooms(country,city,date_from,date_to,adults,children))
+    for (auto &mariott_room : MarriottHotelAPI::FindRooms(country,city,date_from,date_to,adults,children))
     {
         rooms.push_back(Room(mariott_room));
     }
     return rooms;
 }
 std::vector<std::string> MarriottHotel::get_pay_info(const Room& room, int number_of_nights)
-{return online_hotel_api::MarriottHotelAPI::GetPayInfo(room.to_MarriottFoundRoom(), number_of_nights);}
+{
+    //return company name, money, service info(details of the product) (same as Payment interface - payment info)
+    std::vector<std::string> pay_info{"Marriott Hotel"};
+    for (std::string &i : MarriottHotelAPI::GetPayInfo(room.to_MarriottFoundRoom(), number_of_nights))
+    {
+        pay_info.push_back(i);
+    }
+    return pay_info;
+}
 
 bool MarriottHotel::reserve(const Room& room)
-{return online_hotel_api::MarriottHotelAPI::Reserve(room.to_MarriottFoundRoom());}
+{return MarriottHotelAPI::Reserve(room.to_MarriottFoundRoom());}
 
 bool MarriottHotel::cancel_reserve(const Room& room)
-{return online_hotel_api::MarriottHotelAPI::CancelReserve(room.to_MarriottFoundRoom());}
+{return MarriottHotelAPI::CancelReserve(room.to_MarriottFoundRoom());}
 
 
 //////////////////

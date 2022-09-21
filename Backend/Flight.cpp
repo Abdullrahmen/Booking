@@ -98,6 +98,13 @@ bool flight_::AirCanada::cancel_reserve(const Flight& flight)
 }
 std::vector<std::string> flight_::AirCanada::get_pay_info(const Flight& flight) 
 {
+    //return company name, money, service info(details of the product) (same as Payment interface - payment info)
+    std::vector<std::string> pay_info{"Canada Airlines"};
+    for (std::string &i : AirCanadaOnlineAPI::GetPayInfo(flight.to_AirCanadaFlight()))
+    {
+        pay_info.push_back(i);
+    }
+    return pay_info;
     return AirCanadaOnlineAPI::GetPayInfo(flight.to_AirCanadaFlight());
 }
 flight_::AirCanada::~AirCanada(){}
@@ -154,8 +161,14 @@ bool flight_::AirTurkish::cancel_reserve(const Flight& flight)
 }
 std::vector<std::string> flight_::AirTurkish::get_pay_info(const Flight& flight) 
 {
-    return TurkishAirlinesOnlineAPI::GetPaymentInfo(TurkishCustomerInfo{},
-                                                    flight.to_TurkishFlight());    
+    //return company name, money, service info(details of the product) (same as Payment interface - payment info)
+    std::vector<std::string> pay_info{"Turkish Airlines"};
+    for (std::string &i : TurkishAirlinesOnlineAPI::GetPaymentInfo(TurkishCustomerInfo{},
+                                                                    flight.to_TurkishFlight()))
+    {
+        pay_info.push_back(i);
+    }
+    return pay_info;
 }
 flight_::AirTurkish::~AirTurkish(){}
 
