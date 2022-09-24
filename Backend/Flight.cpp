@@ -191,8 +191,8 @@ flight_::IFlight* FlightFactory::create_airlines_helper(const std::string& airli
             std::string error_msg{"FlightFactory class doesn't support \""};
             error_msg+= airlines;
             error_msg+= "\" airlines\nPlease make sure to choose one of the following supported airlines: \n{";
-            for (auto &airlines : airlines)
-            {error_msg+= airlines;
+            for (auto &airline : FlightFactory::airlines)
+            {error_msg+= airline;
             error_msg+= ",  ";}
             error_msg+= "}";
             throw std::invalid_argument(error_msg);

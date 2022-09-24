@@ -94,7 +94,7 @@ IPayment* PaymentFactory::create_payment_helper(const std::string& payment_metho
             {
                 std::string error_msg{"PaymentFactory class doesn't support \""};
                 error_msg+= payment_method;
-                error_msg+= "\" payment\nPlease make sure to choose one of the following supported hotels: \n{";
+                error_msg+= "\" payment\nPlease make sure to choose one of the following supported payments: \n{";
                 for (auto &payment_method : payment_methods)
                 {error_msg+= payment_method;
                 error_msg+= ",  ";}
