@@ -22,11 +22,11 @@ ItineraryItemInfo::~ItineraryItemInfo(){}
 std::string ItineraryItem::item_types[2]{"Hotel","Flight"};
 
 ItineraryItem* ItineraryItem::create_hotel(const std::string& hotel, const Room& room,
-                                        int number_of_nights, const std::string& printing_info="")
+                                        int number_of_nights, const std::string& printing_info)
 {return new HotelItem(hotel, room, number_of_nights, printing_info);}
 
-ItineraryItem* create_flight(const std::string& airlines, const Flight& flight,
-                                        const std::string& printing_info="")
+ItineraryItem* ItineraryItem::create_flight(const std::string& airlines, const Flight& flight,
+                                        const std::string& printing_info)
 {return new FlightItem(airlines, flight, printing_info);}
 
 

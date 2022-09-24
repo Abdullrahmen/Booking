@@ -9,7 +9,7 @@
                 "-g",
                 "${workspaceFolder}\\Backend\\online_APIs\\*.h",
                 "${workspaceFolder}\\Backend\\*.h",
-                "${workspaceFolder}\\*.h",
+                //"${workspaceFolder}\\*.h",
                 "${workspaceFolder}\\Backend\\online_APIs\\*.cpp",
                 "${workspaceFolder}\\Backend\\*.cpp",
                 "${workspaceFolder}\\*.cpp",
