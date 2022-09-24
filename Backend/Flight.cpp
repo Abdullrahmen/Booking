@@ -183,9 +183,9 @@ flight_::IFlight* FlightFactory::create_airlines_helper(const std::string& airli
     try
     {
         if (airlines=="Canada")
-            return new flight_::AirCanada;
+            return new flight_::AirCanada{};
         else if (airlines=="Turkish")
-            return new flight_::AirTurkish;
+            return new flight_::AirTurkish{};
         else
         {
             std::string error_msg{"FlightFactory class doesn't support \""};

@@ -113,9 +113,9 @@ IHotel* HotelFactory::create_hotel_helper(const std::string& hotel)
     try
     {
         if(hotel=="Hilton")
-            return new HiltonHotel;
+            return new HiltonHotel{};
         else if(hotel=="Marriott")
-            return new MarriottHotel;
+            return new MarriottHotel{};
         else
             {
                 std::string error_msg{"HotelFactory class doesn't support \""};

@@ -39,7 +39,7 @@ std::vector<HiltonRoom> HiltonHotelAPI::SearchRooms(const std::string& country,
     return rooms;
 }
 std::vector<std::string> HiltonHotelAPI::GetPaymentInfo(const HiltonRoom& room, int number_of_nights)
-{return std::vector<std::string> {std::to_string(room.get_cost_per_night()*number_of_nights),"more info"};}
+{return std::vector<std::string> {std::to_string(room.get_cost_per_night()*number_of_nights),"Room Reservation"};}
 
 bool HiltonHotelAPI::Reserve(const HiltonRoom& room)
 {return true;}
@@ -87,7 +87,7 @@ std::vector<MarriottFoundRoom> MarriottHotelAPI::FindRooms(const std::string& co
     return rooms;
 }
 std::vector<std::string> MarriottHotelAPI::GetPayInfo(const MarriottFoundRoom& room, int number_of_nights)
-{return std::vector<std::string> {std::to_string(room.get_cost_per_night()*number_of_nights),"more info"};}
+{return std::vector<std::string> {std::to_string(room.get_cost_per_night()*number_of_nights),"Room Reservation"};}
 
 bool MarriottHotelAPI::Reserve(const MarriottFoundRoom& room)
 {return true;}

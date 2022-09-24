@@ -30,7 +30,7 @@ bool AirCanadaOnlineAPI::CancelReserveFlight(const online_airlines_api::AirCanad
 {return true;}
 
 std::vector<std::string> AirCanadaOnlineAPI::GetPayInfo(const online_airlines_api::AirCanadaFlight& flight)
-{return std::vector<std::string> {std::to_string(flight.get_price()),"more info"};}
+{return std::vector<std::string> {std::to_string(flight.get_price()),"Flight Reservation"};}
 
 //////////////////
 //AirCanadaFlight Class
@@ -111,6 +111,6 @@ bool TurkishAirlinesOnlineAPI::CancelReserveFlight(const TurkishCustomerInfo& in
 {return true;}
 
 std::vector<std::string> TurkishAirlinesOnlineAPI::GetPaymentInfo(const TurkishCustomerInfo& info, const TurkishFlight& flight)
-{return std::vector<std::string> {std::to_string(flight.get_cost()),"more info"};}
+{return std::vector<std::string> {std::to_string(flight.get_cost()),"Flight Reservation"};}
 
 TurkishAirlinesOnlineAPI::~TurkishAirlinesOnlineAPI(){}
