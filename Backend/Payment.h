@@ -1,3 +1,6 @@
+#ifndef Payment_H_
+#define Payment_H_
+
 #include "online_APIs\\PaymentOnlineAPI.h"
 using namespace online_payment_api;
 //Transfer info from users to companies
@@ -83,3 +86,5 @@ public:
     //Supported payment methods
     static const std::string* get_payment_methods();
 };
+
+#endif //Payment_H_

@@ -1,3 +1,5 @@
+#ifndef ItineraryItem_H_
+#define ItineraryItem_H_
 /*
 Including items classes
 */
@@ -100,6 +102,7 @@ namespace items_
 
         //delete flight
         ~FlightItem();
-    };
-    
+    };    
 }
+
+#endif //ItineraryItem_H_

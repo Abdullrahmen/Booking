@@ -1,5 +1,5 @@
-#ifndef FLIGHT_H_
-#define FLIGHT_H_
+#ifndef Flight_H_
+#define Flight_H_
 
 #include "online_APIs\\FlightOnlineAPI.h"
 
@@ -158,4 +158,5 @@ public:
     //Supported airlines
     static const std::string* get_airlines();
 };
-#endif
+
+#endif //Flight_H_

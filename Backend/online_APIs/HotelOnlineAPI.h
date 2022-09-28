@@ -1,3 +1,5 @@
+#ifndef HotelOnlineAPI_H_
+#define HotelOnlineAPI_H_
 #include <iostream>
 #include <vector>
 
@@ -65,3 +67,4 @@ namespace online_hotel_api
         static bool CancelReserve(const MarriottFoundRoom& room);
     };
 }
+#endif //HotelOnlineAPI_H_

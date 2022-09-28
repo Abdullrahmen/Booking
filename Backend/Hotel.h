@@ -1,3 +1,5 @@
+#ifndef Hotel_H_
+#define Hotel_H_
 #include "online_APIs\HotelOnlineAPI.h"
 //General Room
 class Room
@@ -90,3 +92,4 @@ public:
     //Supported hotels
     static const std::string* get_hotels();
 };
+#endif //Hote_H_

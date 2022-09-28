@@ -1,6 +1,6 @@
 
-#ifndef FLIIGHTONLINEAPI_H_
-#define FLIIGHTONLINEAPI_H_
+#ifndef FlightOnlineAPI_H_
+#define FlightOnlineAPI_H_
 
 #include <iostream>
 #include <vector>
@@ -83,4 +83,5 @@ namespace online_airlines_api
         ~TurkishAirlinesOnlineAPI();
     };
 }
-#endif
+
+#endif //FlightOnlineAPI_H_

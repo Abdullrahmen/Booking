@@ -1,3 +1,6 @@
+#ifndef PaymentOnlineAPI_H_
+#define PaymentOnlineAPI_H_
+
 #include <iostream>
 #include <vector>
 
@@ -95,3 +98,4 @@ namespace online_payment_api
         bool company_transfer(const PayPalCompanyTransferInfo& transfer);
     };
 }
+#endif //PaymentOnlineAPI_H_
