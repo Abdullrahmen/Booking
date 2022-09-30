@@ -1,8 +1,9 @@
-#ifndef ItineraryItem_H_
-#define ItineraryItem_H_
 /*
 Including items classes
 */
+
+#ifndef ItineraryItem_H_
+#define ItineraryItem_H_
 
 #include "Flight.h"
 #include "Hotel.h"
@@ -29,7 +30,7 @@ public:
     ~ItineraryItemInfo();
 };
 
-//An Interface+Factory for Itinerary items
+//An Interface for Itinerary items
 class ItineraryItem
 {
 private:
@@ -39,23 +40,23 @@ private:
 protected:
     void set_info(const ItineraryItemInfo& info);
 public:
+    //General info for Itinerary item(item_type, item_company, printing_info)
     const ItineraryItemInfo& get_info() const;
 
     //Supported item types
     static const std::string* get_item_types();
 
-    //Factory method to create hotel item
-    static ItineraryItem* create_hotel(const std::string& hotel, const Room& room,
-                                        int number_of_nights, const std::string& printing_info="");
+    /*pure virtual methods*/
 
-    //Factory method to create flight item
-    static ItineraryItem* create_flight(const std::string& airlines, const Flight& flight,
-                                        const std::string& printing_info="");
-
-    //pure virtual methods
+    //company name, money, service_info(details of the product).
     virtual std::vector<std::string> get_pay_info()=0;
+    //Reserve the item from the company API.
     virtual bool reserve()=0;
+    //Cancel the reservation from the company API. 
     virtual bool cancel_reserve()=0;
+
+    //Don't forget virtual (to call childrens' destructors when the interface deleted)
+    virtual ~ItineraryItem();
 };
 
 namespace items_
@@ -72,8 +73,7 @@ namespace items_
         Room room;
     public:
         //create the hotel interface from the HotelFactory
-        HotelItem(const std::string& hotel, const Room& room, int number_of_nights,
-                    const std::string& printing_info="");
+        HotelItem(const Room& room, int number_of_nights, const std::string& printing_info="");
         
         std::vector<std::string> get_pay_info() final;
         bool reserve() final;
@@ -93,16 +93,16 @@ namespace items_
         Flight flight;
     public:
         //create the flight interface from the FlightFactory
-        FlightItem(const std::string& airlines, const Flight& flight,
-                    const std::string& printing_info="");
+        FlightItem(const Flight& flight, const std::string& printing_info="");
         
+        //company name, money, service_info(details of the product)
         std::vector<std::string> get_pay_info() final;
+
         bool reserve() final;
         bool cancel_reserve() final;
 
         //delete flight
         ~FlightItem();
-    };    
+    };   
 }
-
 #endif //ItineraryItem_H_
