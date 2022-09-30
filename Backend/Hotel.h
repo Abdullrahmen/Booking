@@ -21,11 +21,11 @@ public:
     online_hotel_api::MarriottFoundRoom to_MarriottFoundRoom() const;
 
     //Getters
-    const std::string& get_hotel();
-    const std::string& get_room_type();
-    const std::string& get_date_from();
-    const std::string& get_date_to();
-    const double& get_cost_per_night();
+    const std::string& get_hotel() const;
+    const std::string& get_room_type() const;
+    const std::string& get_date_from() const;
+    const std::string& get_date_to() const;
+    const double& get_cost_per_night() const;
     ~Room();
 };
 
@@ -41,6 +41,7 @@ namespace hotel_
                                             const std::string& date_to,
                                             const int& adults,
                                             const int& children)= 0;
+        /// @return company name, money, service_info -> same as Payment class order
         virtual std::vector<std::string> get_pay_info(const Room& room, int number_of_nights)= 0;
         virtual bool reserve(const Room& room)= 0;
         virtual bool cancel_reserve(const Room& room)= 0;
@@ -57,7 +58,7 @@ namespace hotel_
                                             const std::string& date_to,
                                             const int& adults,
                                             const int& children) final;
-        //return company name, money, service info(details of the product) (same as Payment interface - payment info)
+        /// @return company name, money, service_info -> same as Payment class order
         std::vector<std::string> get_pay_info(const Room& room, int number_of_nights) final;
         bool reserve(const Room& room) final;
         bool cancel_reserve(const Room& room) final;
@@ -73,7 +74,7 @@ namespace hotel_
                                             const std::string& date_to,
                                             const int& adults,
                                             const int& children) final;
-        //return company name, money, service info(details of the product) (same as Payment interface - payment info)
+        /// @return company name, money, service info(same as Payment interface - payment info)
         std::vector<std::string> get_pay_info(const Room& room, int number_of_nights) final;
         bool reserve(const Room& room) final;
         bool cancel_reserve(const Room& room) final;
@@ -92,4 +93,4 @@ public:
     //Supported hotels
     static const std::string* get_hotels();
 };
-#endif //Hote_H_
+#endif //Hotel_H_

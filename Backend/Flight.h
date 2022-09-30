@@ -59,7 +59,7 @@ namespace flight_
         virtual bool cancel_reserve(const Flight& flight) = 0;
 
         //Get the payment info for a flight (to reserve and pay it)
-        //return company name, money, service info(details of the product) (same as Payment interface - payment info)
+        /// @return company name, money, service info(same as Payment interface - payment info)
         virtual std::vector<std::string> get_pay_info(const Flight& flight) = 0;
     
         //Destructor
@@ -100,7 +100,7 @@ namespace flight_
         bool cancel_reserve(const Flight& flight) final;
 
         //Get the payment info for a flight (to reserve and pay it)
-        //return company name, money, service info(details of the product) (same as Payment interface - payment info)
+        /// @return company name, money, service info(same as Payment interface - payment info)
         std::vector<std::string> get_pay_info(const Flight& flight) final;
 
         ~AirCanada() final;
@@ -140,6 +140,7 @@ namespace flight_
         bool cancel_reserve(const Flight& flight) final;
 
         //Get the payment info for a flight (to reserve and pay it)
+        /// @return company name, money, service_info -> same as Payment class order
         std::vector<std::string> get_pay_info(const Flight& flight) final;
 
         ~AirTurkish();

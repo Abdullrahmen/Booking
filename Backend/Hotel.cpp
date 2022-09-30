@@ -23,11 +23,11 @@ HiltonRoom Room::to_HiltonRoom() const
 MarriottFoundRoom Room::to_MarriottFoundRoom() const
 {return MarriottFoundRoom{room_type, date_from, date_to, cost_per_night};}
 
-const std::string& Room::get_hotel(){return hotel;}
-const std::string& Room::get_room_type(){return room_type;}
-const std::string& Room::get_date_from(){return date_from;}
-const std::string& Room::get_date_to(){return date_to;}
-const double& Room::get_cost_per_night(){return cost_per_night;}
+const std::string& Room::get_hotel() const{return hotel;}
+const std::string& Room::get_room_type() const{return room_type;}
+const std::string& Room::get_date_from() const{return date_from;}
+const std::string& Room::get_date_to() const{return date_to;}
+const double& Room::get_cost_per_night() const{return cost_per_night;}
 Room::~Room(){}
 
 
@@ -51,12 +51,11 @@ std::vector<Room> HiltonHotel::find_rooms(const std::string& country,
 }
 std::vector<std::string> HiltonHotel::get_pay_info(const Room& room, int number_of_nights)
 {
-    //return company name, money, service info(details of the product) (same as Payment interface - payment info)
-    std::vector<std::string> pay_info{"Hilton Hotel"};
-    for (std::string &i : HiltonHotelAPI::GetPaymentInfo(room.to_HiltonRoom(),number_of_nights))
-    {
+    std::vector<std::string> pay_info {"Hilton"};
+
+    for (auto &i : HiltonHotelAPI::GetPaymentInfo(room.to_HiltonRoom(),number_of_nights))
         pay_info.push_back(i);
-    }
+    
     return pay_info;
 }
 
@@ -87,12 +86,11 @@ std::vector<Room> MarriottHotel::find_rooms(const std::string& country,
 }
 std::vector<std::string> MarriottHotel::get_pay_info(const Room& room, int number_of_nights)
 {
-    //return company name, money, service info(details of the product) (same as Payment interface - payment info)
-    std::vector<std::string> pay_info{"Marriott Hotel"};
-    for (std::string &i : MarriottHotelAPI::GetPayInfo(room.to_MarriottFoundRoom(), number_of_nights))
-    {
+    std::vector<std::string> pay_info {"Marriott"};
+
+    for (auto &i : MarriottHotelAPI::GetPayInfo(room.to_MarriottFoundRoom(), number_of_nights))
         pay_info.push_back(i);
-    }
+    
     return pay_info;
 }
 
