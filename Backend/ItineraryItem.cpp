@@ -21,30 +21,22 @@ ItineraryItemInfo::~ItineraryItemInfo(){}
 
 std::string ItineraryItem::item_types[2]{"Hotel","Flight"};
 
-ItineraryItem* ItineraryItem::create_hotel(const std::string& hotel, const Room& room,
-                                        int number_of_nights, const std::string& printing_info)
-{return new HotelItem(hotel, room, number_of_nights, printing_info);}
-
-ItineraryItem* ItineraryItem::create_flight(const std::string& airlines, const Flight& flight,
-                                        const std::string& printing_info)
-{return new FlightItem(airlines, flight, printing_info);}
-
-
 const std::string* ItineraryItem::get_item_types(){return &item_types[0];}
 const ItineraryItemInfo& ItineraryItem::get_info() const {return info;}
 void ItineraryItem::set_info(const ItineraryItemInfo& info) {this->info=info;}
+
+ItineraryItem::~ItineraryItem(){}
 
 //////////////////
 //HotelItem Class
 //////////////////
 
-HotelItem::HotelItem(const std::string& hotel, const Room& room, int number_of_nights,
-                                        const std::string& printing_info):
-                                            hotel(HotelFactory::create_hotel_helper(hotel)),
+HotelItem::HotelItem(const Room& room, int number_of_nights, const std::string& printing_info):
+                                            hotel(HotelFactory::create_hotel_helper(room.get_hotel())),
                                             number_of_nights(number_of_nights),
                                             room(room)
 {
-    set_info(ItineraryItemInfo{"Hotel", hotel, printing_info});
+    set_info(ItineraryItemInfo{"Hotel", room.get_hotel(), printing_info});
 }
 
 bool HotelItem::reserve(){return hotel->reserve(room);}
@@ -61,11 +53,11 @@ HotelItem::~HotelItem()
 //FlightItem Class
 //////////////////
 
-FlightItem::FlightItem(const std::string& airlines, const Flight& flight, const std::string& printing_info):
-                                            airlines(FlightFactory::create_airlines_helper(airlines)),
+FlightItem::FlightItem(const Flight& flight, const std::string& printing_info):
+                                            airlines(FlightFactory::create_airlines_helper(flight.get_airlines())),
                                             flight(flight)
 {
-    set_info(ItineraryItemInfo{"Flight", airlines, printing_info});
+    set_info(ItineraryItemInfo{"Flight", flight.get_airlines(), printing_info});
 }
 
 bool FlightItem::reserve(){return airlines->reserve(flight);}
