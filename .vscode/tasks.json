@@ -9,9 +9,11 @@
                 "-g",
                 "${workspaceFolder}\\Backend\\online_APIs\\*.h",
                 "${workspaceFolder}\\Backend\\*.h",
+                "${workspaceFolder}\\Frontend\\*.h",
                 //"${workspaceFolder}\\*.h",
                 "${workspaceFolder}\\Backend\\online_APIs\\*.cpp",
                 "${workspaceFolder}\\Backend\\*.cpp",
+                "${workspaceFolder}\\Frontend\\*.cpp",
                 "${workspaceFolder}\\*.cpp",
                 "-o",
                 "${workspaceFolder}\\Expedia.exe"
