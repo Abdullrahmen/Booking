@@ -37,8 +37,8 @@ private:
     /// @brief Login Admin Data(name, password).
     static std::vector<LoginInfo> admins_;
 public:
-    static void add_customer(const LoginInfo& customer, const std::vector<PaymentInfo>& payments);
-    static void add_admin(const LoginInfo& admin);
+    static bool add_customer(const LoginInfo& customer, const std::vector<PaymentInfo>& payments);
+    static bool add_admin(const LoginInfo& admin);
     friend class User;
 };
 
@@ -51,62 +51,62 @@ private:
     /// @brief Login User Data(name, password).
     LoginInfo user_data;
      
-    /// @brief Customer special data.  
+    /// @brief Customer special data. (this is bad design because there are data for specific child)
     /// (if itineraries and payments converted to string or json I won't need a specific user type data here (maybe in the future updates))
     std::vector<Itinerary> itineraries;
     /// @brief (PayPal, Stripe)
     std::vector<PaymentInfo> payments;
 
+    bool is_login_;
+
 protected:
-    /// @brief If succesfully logined (for customers) you can access the data by get_user_data,
+    /// @brief If succesfully logined (for customers) you can access the data by get_name,
     /// get_itineraries, get_payments.
     /// @param info
     /// @param user_type Admin or Customer
     /// @return True if succesfully login.
-    bool verify_login(const LoginInfo& info, std::string user_type);
+    bool verify_login(const LoginInfo& info, const std::string& user_type);
 
-    const std::vector<std::string>& get_user_data() const;
+    const std::string& get_name() const;
     std::vector<Itinerary>& get_itineraries(); //change able (without const)
+    const std::vector<Itinerary>& get_const_itineraries() const;
     const std::vector<PaymentInfo>& get_payments() const;
+
+    bool is_login() const;
+
+public:
+    User();
+    ~User();
 };
 
 class Admin: public User
 {
 public:
-    Admin();
-    
-    void login(std::string id, std::string password);
+    bool login(const LoginInfo& admin);
     
     /// @brief Register a new Admin
     /// @param admin {name, password}
-    void register_(std::vector<std::string> admin);
-
-    ~Admin();
+    static bool register_(const LoginInfo& admin);
 };
 
 class Customer: public User
 {
-private:
-    bool is_login;
 public:
-    Customer();
-    
-    void login(std::string id, std::string password);
+    bool login(const LoginInfo& customer);
     
     /// @brief Register a new customer
     /// @param customer {id, password, name}
     /// @param payments {PayPal, Stripe}
-    void register_(std::vector<std::string> customer, std::vector<PaymentInfo> payments);
+    static bool register_(const LoginInfo& customer, const std::vector<PaymentInfo>& payments);
     
     /* Access after login */
 
     void add_itinerary(const Itinerary& itinerary);
+    //Warning: change able with reference.
     Itinerary& get_itinerary(int idx); //change able (without const)
     void remove_itinerary(int idx);
 
     void print_itineraries() const;
-
-    ~Customer();
 };
 
 #endif // User_H_
