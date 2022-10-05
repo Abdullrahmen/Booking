@@ -11,15 +11,14 @@ private:
     std::vector<std::string> options;
     std::vector<func_ptr> options_funcs;
     std::string header_str; // eg. Menu: \n
-    std::string choose_str; // eg. Enter a number in range % - % \n
     bool is_run;
-    std::string choosed_option;
+    int choosed_number; //= choosed number-1 (to make it zero based)
 public:
-    OptionsMenu(const std::string& header_str="Menu: \n");
+    OptionsMenu(const std::string& header_str="Menu: ");
 
     /// @brief Add an option to the menu.
     /// @param option Option string
-    /// @param func Optional bool function pointer that will be called when the option choosed
+    /// @param func Optional bool function pointer that will be called when the option choosed (bool (*)())
     void add_option(const std::string& option, func_ptr func= nullptr);
 
     /// @brief Remove an option from the menu.
