@@ -14,7 +14,7 @@ private:
     bool is_run;
     int choosed_number; //= choosed number-1 (to make it zero based)
 public:
-    OptionsMenu(const std::string& header_str="Menu: ");
+    OptionsMenu(const std::string& header_str="Menu: \n");
 
     /// @brief Add an option to the menu.
     /// @param option Option string
