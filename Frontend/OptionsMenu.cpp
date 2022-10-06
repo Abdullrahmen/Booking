@@ -32,7 +32,16 @@ void OptionsMenu::remove_option(const std::string& option)
     {
         auto e{std::string{"Didn't find option (\""}};
         e+= option;
-        e+= "\") to remove it.";
+        e+= "\") to remove it.\n";
+        e+= "The menu has the following options: \n{";
+        for (auto &i : options)
+        {
+            e+= i;
+            e+= ",  ";
+        }
+        e= e.substr(0, e.size()-3);
+        e+= "}";
+        
         throw std::invalid_argument(e);
     }
 }
@@ -45,12 +54,12 @@ bool OptionsMenu::run(bool clear_cmd, bool func_call)
     if(clear_cmd)
         std::cout << "\033[2J\033[1;1H";
 
-    std::cout<< header_str<<"\n";
+    std::cout<< header_str;
 
     for (int i = 0; i < (int)options.size(); i++)
         std::cout<<"\t"<<i+1<<": "<<options[i]<<"\n";
     
-    std::cout<<"Enter a number in range 1 - "<<options.size()<<": ";
+    std::cout<<"\nEnter a number in range 1 - "<<options.size()<<": ";
     
     std::string choosed_number_{""};
     //Check if the input is a number and in the valid range.
