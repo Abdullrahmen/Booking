@@ -7,20 +7,30 @@
 class InputsMenu
 {
 private:
+    /// All vectors have same index and size.
     std::vector<std::string> inputs;
+    std::vector<bool> multiword_;
+    std::vector<int> max_char_;
+    std::vector<char> end_char_;
     std::vector<std::string> answers;//same index as inputs.
+    
     std::string header_str;
     bool is_run;
 
 public:
-    InputsMenu(const std::string& header_str="Menu: ");
+    InputsMenu(const std::string& header_str="");
 
     /// @brief Add an input to the menu.
     /// @param input Input string
-    /// @param multiword Multiword input
-    /// @param multiline Multiline input (override multiword) (end the input with end_char)
-    /// @param end_char If multiline is true this will end the input
-    void add_input(const std::string& input, bool multiword=false, bool multiline=false, char end_char='$');
+    /// @param max_char Max number of chars (the exceed will be ignored)
+    /// @param multiword Bool if the input is multiword
+    /// @param end_char If multiword is true this char will end the stream 
+    /// (eg. if it's \\n then the stream will read until the user press enter)
+    /// (if you want multiline answer just change the end_char to eg. "$")
+    void add_input(const std::string& input, bool multiword=false, char end_char='\n', int max_char=100);
+
+    /// Later feature.
+    //void add_multi_input() // eg. string is 'Ahmed,John,Sama' and return vector of string 
 
     /// @brief Remove an input from the menu.
     /// @param input Input string
