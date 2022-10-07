@@ -1,13 +1,13 @@
 #include "User.h"
 
 /*temp customer data*/
-std::vector<LoginInfo> Data::customers_ {{"Reem",""},{"Mohammed",""}};
+std::vector<LoginInfo> Data::customers_ {{"Reem","123"},{"Mohammed","123"}};
 std::vector<std::vector<Itinerary>> Data::itineraries_{{},{}};
 std::vector<std::vector<PaymentInfo>> Data::payments_{{{PaymentInfo{},PaymentInfo{}}},
                                                         {{PaymentInfo{},PaymentInfo{}}}};
 
 /*temp admin data*/
-std::vector<LoginInfo> Data::admins_{{"Abdo",""}};
+std::vector<LoginInfo> Data::admins_{{"Abdo","123"}};
 
 //////////////////
 //LoginInfo Class
