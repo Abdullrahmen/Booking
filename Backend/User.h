@@ -67,7 +67,6 @@ protected:
     /// @return True if succesfully login.
     bool verify_login(const LoginInfo& info, const std::string& user_type);
 
-    const std::string& get_name() const;
     std::vector<Itinerary>& get_itineraries(); //change able (without const)
     const std::vector<Itinerary>& get_const_itineraries() const;
     const std::vector<PaymentInfo>& get_payments() const;
@@ -76,6 +75,7 @@ protected:
 
 public:
     User();
+    const std::string& get_name() const;
     ~User();
 };
 
