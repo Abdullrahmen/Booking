@@ -86,7 +86,7 @@ bool StripePayment::company_transfer(const PaymentInfo& payment_info, const Comp
 //PaymentFactory Class
 //////////////////
 
-std::string PaymentFactory::payment_methods[2]{"PayPal","Stripe"};
+std::vector<std::string> PaymentFactory::payment_methods{"PayPal","Stripe"};
 
 IPayment* PaymentFactory::create_payment_helper(const std::string& payment_method)
 {
@@ -114,7 +114,7 @@ IPayment* PaymentFactory::create_payment_helper(const std::string& payment_metho
         throw;
     }
 }
-const std::string* PaymentFactory::get_payment_methods()
+const std::vector<std::string>& PaymentFactory::get_payment_methods()
 {
-    return &payment_methods[0];
+    return payment_methods;
 }
