@@ -10,7 +10,7 @@ private:
     /// @brief The items of the Itinerary
     std::vector<ItineraryItem*> items;
 
-    /// @brief describe is every item in the itinerary succesfully paid. 
+    /// @brief describe if every item in the itinerary succesfully paid. 
     /// size: number of items in the itinerary.
     /// (need to pay the itinerary to use it)
     std::vector<bool> items_paid;
@@ -37,7 +37,7 @@ public:
     /// You can check if every item is succesfully paid from get_items_paid method. 
     /// @param company payment company (eg.PayPal)
     /// @param user_payment user's payment info
-    void pay(std::string company, PaymentInfo user_payment);
+    void pay(const std::string& company, const PaymentInfo& user_payment);
 
     /// @brief cancel reservations and (in the future) return money :)
     void cancel_pay();

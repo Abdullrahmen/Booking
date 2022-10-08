@@ -27,12 +27,18 @@ double Itinerary::get_total_cost() const
     return total_cost;
 }
 
-void Itinerary::pay(std::string company, PaymentInfo user_payment)
+void Itinerary::pay(const std::string& company, const PaymentInfo& user_payment)
 {
     if(is_paid)
     {
         auto e{"Itinerary can't paid more than once."};
         throw std::invalid_argument(e);// will call the destructor to free the heap memory
+    }
+
+    if(user_payment.is_empty())
+    {
+        auto e{"Can't pay with empty payment info."};
+        throw std::invalid_argument(e);
     }
 
     user_payment_= user_payment;
