@@ -21,6 +21,11 @@ LoginInfo::~LoginInfo(){}
 //Data Class
 //////////////////
 
+const const std::vector<std::string>& Data::get_payment_methods()
+{
+    return PaymentFactory::get_payment_methods();
+}
+
 bool Data::add_customer(const LoginInfo& customer, const std::vector<PaymentInfo>& payments)
 {
     for (auto &i : customers_)

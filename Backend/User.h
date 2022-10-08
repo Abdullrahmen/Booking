@@ -25,19 +25,28 @@ private:
     /// @brief Login Customer Data(name, password).
     static std::vector<LoginInfo> customers_;
 
-    //for every customer there is a vector of itineraries (same index as customers vector).
+    //for every customer there is a vector of itineraries (same customer index as customers vector).
     //in general, itineraries and payments must converted to string or json type to store them in the tables
-    //but for simplicity I won't do that now (maybe a future update).
+    //but for simplicity I won't do that now (maybe in a future update).
     static std::vector<std::vector<Itinerary>> itineraries_;
-    /// @brief (PayPal, Stripe) (same index as customers vector).
+    /// @brief (PayPal, Stripe) (same customer index as customers vector).
     static std::vector<std::vector<PaymentInfo>> payments_;
 
-
     /*temp admin data*/
-    /// @brief Login Admin Data(name, password).
+    /// @brief Login admin data(name, password).
     static std::vector<LoginInfo> admins_;
 public:
+    /// @brief Supported payment methods (linked to PaymentFactory class).
+    /// @return payment methods with same order as add_customer payments vector.
+    static const std::vector<std::string>& get_payment_methods();
+    /// @brief Sign up a new customer
+    /// @param customer Login customer data(name, password)
+    /// @param payments Payment methods (must be with the same order as get_payment_methods method)
+    /// @return True if successfully signed up
     static bool add_customer(const LoginInfo& customer, const std::vector<PaymentInfo>& payments);
+    /// @brief Sign up a new admin.
+    /// @param admin Login admin data(name, password)
+    /// @return True if successfully signed up
     static bool add_admin(const LoginInfo& admin);
     friend class User;
 };
