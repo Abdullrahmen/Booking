@@ -36,6 +36,12 @@ const std::string& PaymentInfo::get_id() const{return id;}
 const std::string& PaymentInfo::get_expire_date() const{return expire_date;}
 const int& PaymentInfo::get_ccv() const{return ccv;}
 
+const bool PaymentInfo::is_empty() const 
+{
+    if(name=="" && address=="" && id=="" && expire_date=="" && ccv==0){return true;}
+    return false;
+}
+
 PaymentInfo::~PaymentInfo(){}
 
 //////////////////

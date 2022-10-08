@@ -48,6 +48,7 @@ public:
     const std::string& get_expire_date() const;
     const int& get_ccv() const;
 
+    const bool is_empty() const;
     ~PaymentInfo();
 };
 
