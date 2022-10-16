@@ -42,11 +42,11 @@ public:
     /// @brief Sign up a new customer
     /// @param customer Login customer data(name, password)
     /// @param payments Payment methods (must be with the same order as get_payment_methods method)
-    /// @return True if successfully signed up
+    /// @return True if successfully added
     static bool add_customer(const LoginInfo& customer, const std::vector<PaymentInfo>& payments);
     /// @brief Sign up a new admin.
     /// @param admin Login admin data(name, password)
-    /// @return True if successfully signed up
+    /// @return True if successfully added
     static bool add_admin(const LoginInfo& admin);
     friend class User;
 };
@@ -95,6 +95,7 @@ public:
     
     /// @brief Register a new Admin
     /// @param admin {name, password}
+    /// @return True if successfully signed up
     static bool register_(const LoginInfo& admin);
 };
 
@@ -106,6 +107,7 @@ public:
     /// @brief Register a new customer
     /// @param customer {id, password, name}
     /// @param payments {PayPal, Stripe}
+    /// @return True if successfully signed up
     static bool register_(const LoginInfo& customer, const std::vector<PaymentInfo>& payments);
     
     /* Access after login */

@@ -21,7 +21,7 @@ LoginInfo::~LoginInfo(){}
 //Data Class
 //////////////////
 
-const const std::vector<std::string>& Data::get_payment_methods()
+const std::vector<std::string>& Data::get_payment_methods()
 {
     return PaymentFactory::get_payment_methods();
 }
