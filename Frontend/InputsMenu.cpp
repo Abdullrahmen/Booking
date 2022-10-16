@@ -1,6 +1,5 @@
 #include "InputsMenu.h"
 #include <algorithm>
-#include <limits>
 
 //////////////////
 //InputsMenu Class
@@ -9,11 +8,10 @@
 InputsMenu::InputsMenu(const std::string& header_str):
                     header_str(header_str){}
 
-void InputsMenu::add_input(const std::string& input, bool multiword, char end_char, int max_char)
+void InputsMenu::add_input(const std::string& input, char end_char, int max_char)
 {
     inputs.push_back(input);
     max_char_.push_back(max_char);
-    multiword_.push_back(multiword);
     end_char_.push_back(end_char);
 }
 
@@ -26,7 +24,6 @@ void InputsMenu::remove_input(const std::string& input)
         int i= it - inputs.begin();
         inputs.erase(it);
         max_char_.erase(max_char_.begin()+i);
-        multiword_.erase(multiword_.begin()+i);
         end_char_.erase(end_char_.begin()+i);
     }
     else
@@ -54,7 +51,6 @@ void InputsMenu::run(bool clear_cmd)
 
     if(clear_cmd)
         std::cout << "\033[2J\033[1;1H";
-
     std::cout<< header_str;
 
     char symbols[]{'\n','\t'};
@@ -62,17 +58,31 @@ void InputsMenu::run(bool clear_cmd)
 
     for (int i = 0; i < (int)inputs.size(); i++)
     {
-        char answer[max_char_[i]]{""};
-        std::cout<< inputs[i]<<": ";
+        /*
+        Will get the input until end_char then get first word if multiword==false or split it if max_char==0
+        */
 
-        if(multiword_[i])
+        auto answer{std::string{}};
+        //char answer[max_char_[i]]{""}; // converted to string to use getline(string) to get unlimited characters
+        auto end_char{end_char_[i]};
+
+        //Fix if the user print one word then press enter without press space before it
+        auto one_word{false};
+        if(end_char==' ')
         {
-            std::cout<<"(Press \"";
-            
+            one_word=true;
+            end_char='\n';
+        }
+
+        std::cout<< inputs[i]<<": ";
+        if (end_char!='\n')
+        {
+            std::cout<<"(Press ";
+
             auto is_symbol{false};
             for (int s = 0; s < (int)std::size(symbols); s++)
             {
-                if(end_char_[i]==symbols[s])
+                if(end_char==symbols[s])
                 {
                     std::cout<<symbols_names[s];
                     is_symbol=true;
@@ -82,16 +92,31 @@ void InputsMenu::run(bool clear_cmd)
             if(!is_symbol)
                 std::cout<<end_char_[i];
 
-            std::cout<<"\" then Enter to finish)\n";
-            
-            std::cin.getline(answer, max_char_[i], end_char_[i]);
+            std::cout<<" then Enter to finish)\n";
         }
-        else
-            std::cin>>answer;
+        
+        // Check empty answer -neglected
+        // while (std::string(answer).length()==0)
+        
+        //converted to getline(string) to get unlimited characters + prevent minor problems
+        std::getline(std::cin, answer, end_char);
+        //std::cin.getline(answer, max_char_[i], end_char);
+        
+        
+        // if end_char != '\n' then the user need to press enter after end_char to apply it 
+        // so we need to ignore characters between end_char and enter
+        if(end_char!='\n')
+        {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
 
-        //clear flags and buffer stored.
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        if(one_word)
+            answer= answer.substr(0, answer.find(' '));//First word only.
+        
+        if(max_char_[i]!=0)
+            answer= answer.substr(0, max_char_[i]);//Limited char        
         
         answers.push_back(answer);
     }

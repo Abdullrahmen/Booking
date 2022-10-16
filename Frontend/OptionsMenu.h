@@ -39,6 +39,9 @@ public:
     /// @brief Must run the menu before call it.
     /// @return Choosed option's function pointer.
     func_ptr get_choosed_func() const;
+    /// @brief Must run the menu call it.
+    /// @return The number written by user
+    int get_choosed_number() const;
 
     ~OptionsMenu();
 };
