@@ -28,6 +28,8 @@ const std::vector<std::string>& Data::get_payment_methods()
 
 bool Data::add_customer(const LoginInfo& customer, const std::vector<PaymentInfo>& payments)
 {
+    if(payments.size()!=PaymentFactory::get_payment_methods().size())
+        throw std::invalid_argument("payments must be with the same order and size as get_payment_methods method in PaymentFactory class");
     for (auto &i : customers_)
     {
         if(i.name==customer.name)
@@ -65,7 +67,7 @@ User::User():
 bool User::verify_login(const LoginInfo& info, const std::string& user_type)
 {
     if(is_login_)
-        throw std::invalid_argument("Can't login twice. (login called twice in the same user.)");
+        throw std::invalid_argument("Can't login twice. (login called twice in the same object.)");
 
     std::vector<LoginInfo>& users_logins {Data::customers_};
     if (user_type=="Admin")
@@ -150,8 +152,17 @@ bool Admin::login(const LoginInfo& admin)
 //Customer Class
 //////////////////
 
-bool Customer::register_(const LoginInfo& customer, const std::vector<PaymentInfo>& payments)
+bool Customer::register_(const LoginInfo& customer, std::vector<PaymentInfo>& payments)
 {
+    //difference between the size of payments vector and the size of supported paymect methods.
+    auto difference{(int)payments.size() < (int)PaymentFactory::get_payment_methods().size()};
+
+    if(difference<0)
+        return false;
+    else if(difference>0)
+        for (int i = 0; i < difference; i++)
+            payments.push_back(PaymentInfo{});
+
     return Data::add_customer(customer, payments);
 }
 
@@ -168,20 +179,26 @@ void Customer::add_itinerary(const Itinerary& itinerary)
     get_itineraries().push_back(itinerary);
 }
 
-Itinerary& Customer::get_itinerary(int idx)
+Itinerary& Customer::get_itinerary(unsigned int idx)
 {
     if(!is_login())
         throw std::invalid_argument("You can't get itinerary before login.");
 
+    if(idx > get_itineraries().size()-1)
+        throw std::invalid_argument("Invalid index");
+        
     return get_itineraries()[idx];
 }
 
-void Customer::remove_itinerary(int idx)
+void Customer::remove_itinerary(unsigned int idx)
 {
     if(!is_login())
         throw std::invalid_argument("You can't remove itinerary before login.");
 
     auto &v {get_itineraries()};
+    if(idx > v.size()-1)
+        throw std::invalid_argument("Invalid index");
+
     v.erase(v.begin()+idx);
 }
 

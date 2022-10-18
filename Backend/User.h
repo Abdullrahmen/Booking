@@ -41,7 +41,7 @@ public:
     static const std::vector<std::string>& get_payment_methods();
     /// @brief Sign up a new customer
     /// @param customer Login customer data(name, password)
-    /// @param payments Payment methods (must be with the same order as get_payment_methods method)
+    /// @param payments Payment methods (must be with the same order and size as get_payment_methods method in PaymentFactory class)
     /// @return True if successfully added
     static bool add_customer(const LoginInfo& customer, const std::vector<PaymentInfo>& payments);
     /// @brief Sign up a new admin.
@@ -63,7 +63,7 @@ private:
     /// @brief Customer special data. (this is bad design because there are data for specific child)
     /// (if itineraries and payments converted to string or json I won't need a specific user type data here (maybe in the future updates))
     std::vector<Itinerary> itineraries;
-    /// @brief (PayPal, Stripe)
+    /// @brief {PayPal, Stripe} with same order and size (unavailable will be empty PaymentInfo)
     std::vector<PaymentInfo> payments;
 
     bool is_login_;
@@ -76,15 +76,23 @@ protected:
     /// @return True if succesfully login.
     bool verify_login(const LoginInfo& info, const std::string& user_type);
 
-    std::vector<Itinerary>& get_itineraries(); //change able (without const)
-    const std::vector<Itinerary>& get_const_itineraries() const;
-    const std::vector<PaymentInfo>& get_payments() const;
-
     bool is_login() const;
 
 public:
     User();
+
     const std::string& get_name() const;
+
+    /* Access after login */
+
+    //Warning: changeable (with reference).
+    std::vector<Itinerary>& get_itineraries();
+
+    const std::vector<Itinerary>& get_const_itineraries() const;
+
+    /// @return {PayPal, Stripe} with same order and size (unavailable will be empty payment info)
+    const std::vector<PaymentInfo>& get_payments() const;
+
     ~User();
 };
 
@@ -106,16 +114,24 @@ public:
     
     /// @brief Register a new customer
     /// @param customer {id, password, name}
-    /// @param payments {PayPal, Stripe}
+    /// @param payments {PayPal, Stripe} with same order and size 
+    /// (if size < number of supported payment methods will fill the rest with empty payment info)
     /// @return True if successfully signed up
-    static bool register_(const LoginInfo& customer, const std::vector<PaymentInfo>& payments);
+    static bool register_(const LoginInfo& customer, std::vector<PaymentInfo>& payments);
     
     /* Access after login */
 
+    /// @brief Add new itinerary to the user.
     void add_itinerary(const Itinerary& itinerary);
-    //Warning: change able with reference.
-    Itinerary& get_itinerary(int idx); //change able (without const)
-    void remove_itinerary(int idx);
+
+    /// @brief Warning: changeable (with reference).
+    /// Please use remove_itinerary if you want to delete the itinerary (don't delete it manually)
+    /// @param idx index of the itinerary.
+    /// @return 
+    Itinerary& get_itinerary(unsigned int idx);
+    
+    /// @brief Delete itinerary from the user.
+    void remove_itinerary(unsigned int idx);
 
     void print_itineraries() const;
 };
