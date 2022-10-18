@@ -1,30 +1,4 @@
-#include "Backend//User.h"
-#include "Frontend//InputsMenu.h"
-#include "Frontend//OptionsMenu.h"
-
-bool pre_menu() {return false;}
-
-bool customer_view(Customer customer)
-{
-    std::cout<<"\033[2J\033[1;1H";
-    std::cout<<"Hello "<<customer.get_name()<<" |*| Customer View\n";
-    OptionsMenu menu;
-    menu.add_option("Make itinerary");
-    menu.add_option("List my itineraries");
-    menu.add_option("Remove itinerary");
-    menu.add_option("Modify itinerary (-later)");
-    menu.add_option("Log out", pre_menu);
-
-    if(menu.run(false))
-        return true;
-    
-    return false;
-}
-
-bool admin_view(Admin admin)
-{
-    return false;
-}
+#include "Views.cpp"
 
 bool login()
 {
@@ -83,50 +57,6 @@ bool login()
             }
         }
         return true;//when the user's view loop end return to base loop (base menu).
-    }
-}
-
-PaymentInfo ask_payment_info()
-{
-    try
-    {
-        auto error_msg{std::string{""}};
-        //Loop until all info write correctly
-        while (true)
-        {
-            std::cout<<"\033[2J\033[1;1H";//clear cmd
-            std::cout<<error_msg;
-            error_msg="";//reset error message
-
-            InputsMenu menu;
-            menu.add_input("Name", '\n');
-            menu.add_input("Address", '\n');
-            menu.add_input("Id", ' ');
-            menu.add_input("Expire date", ' ');
-            menu.add_input("ccv", ' '); //must check if it's int
-
-            menu.run(false);
-
-            //convert ccv to int
-            int ccv{0};
-            auto ccv_ {menu.get_answers()[menu.get_answers().size()-1]};
-            try
-            {
-                ccv= std::stoi(ccv_);
-            }
-            catch(const std::exception& e)
-            {
-                error_msg+= "ccv invalid argument\n\n";
-                continue;
-            }
-
-            auto &a{menu.get_answers()};
-            return PaymentInfo{a[0], a[1], a[2], a[3], ccv};
-        }
-    }
-    catch(const std::exception& e)
-    {
-        return PaymentInfo{};
     }
 }
 
