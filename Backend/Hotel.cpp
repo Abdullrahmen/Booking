@@ -105,7 +105,7 @@ bool MarriottHotel::cancel_reserve(const Room& room)
 //HotelFactory Class
 //////////////////
 
-std::string HotelFactory::hotels[2]{"Hilton","Marriott"};
+std::vector<std::string> HotelFactory::hotels{"Hilton","Marriott"};
 IHotel* HotelFactory::create_hotel_helper(const std::string& hotel)
 {
     try
@@ -132,7 +132,7 @@ IHotel* HotelFactory::create_hotel_helper(const std::string& hotel)
         throw;
     } 
 }
-const std::string* HotelFactory::get_hotels()
+const std::vector<std::string>& HotelFactory::get_hotels()
 {
-    return &hotels[0];
+    return hotels;
 }

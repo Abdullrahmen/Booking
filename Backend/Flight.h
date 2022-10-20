@@ -152,12 +152,12 @@ class FlightFactory
 {
 private:
     //Supported airlines
-    static std::string airlines[2];
+    static std::vector<std::string> airlines;
 public:
     //Airlines factory method
     static flight_::IFlight* create_airlines_helper(const std::string& airlines);
     //Supported airlines
-    static const std::string* get_airlines();
+    static const std::vector<std::string>& get_airlines();
 };
 
 #endif //Flight_H_

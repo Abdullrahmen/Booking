@@ -174,7 +174,7 @@ flight_::AirTurkish::~AirTurkish(){}
 //FlightFactory Class
 //////////////////
 
-std::string FlightFactory::airlines[2] = {"Canada","Turkish"};
+std::vector<std::string> FlightFactory::airlines{"Canada","Turkish"};
 flight_::IFlight* FlightFactory::create_airlines_helper(const std::string& airlines)
 {
     try
@@ -201,7 +201,7 @@ flight_::IFlight* FlightFactory::create_airlines_helper(const std::string& airli
         throw;
     }
 }
-const std::string* FlightFactory::get_airlines()
+const std::vector<std::string>& FlightFactory::get_airlines()
 {
-    return &airlines[0];
+    return airlines;
 }

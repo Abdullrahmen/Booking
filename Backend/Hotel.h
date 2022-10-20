@@ -87,10 +87,10 @@ class HotelFactory
 {
 private:
     //Supported hotels
-    static std::string hotels[2];
+    static std::vector<std::string> hotels;
 public:
     static hotel_::IHotel* create_hotel_helper(const std::string& hotel);
     //Supported hotels
-    static const std::string* get_hotels();
+    static const std::vector<std::string>& get_hotels();
 };
 #endif //Hotel_H_
