@@ -8,11 +8,12 @@
 InputsMenu::InputsMenu(const std::string& header_str):
                     header_str(header_str){}
 
-void InputsMenu::add_input(const std::string& input, char end_char, int max_char)
+void InputsMenu::add_input(const std::string& input, char end_char, int max_char, int answer_type)
 {
     inputs.push_back(input);
     max_char_.push_back(max_char);
     end_char_.push_back(end_char);
+    answer_type_.push_back(answer_type);
 }
 
 void InputsMenu::remove_input(const std::string& input)
@@ -25,6 +26,7 @@ void InputsMenu::remove_input(const std::string& input)
         inputs.erase(it);
         max_char_.erase(max_char_.begin()+i);
         end_char_.erase(end_char_.begin()+i);
+        answer_type_.erase(answer_type_.begin()+i);
     }
     else
     {
@@ -65,6 +67,7 @@ void InputsMenu::run(bool clear_cmd)
         auto answer{std::string{}};
         //char answer[max_char_[i]]{""}; // converted to string to use getline(string) to get unlimited characters
         auto end_char{end_char_[i]};
+        auto answer_type{answer_type_[i]};
 
         //Fix if the user print one word then press enter without press space before it
         auto one_word{false};
@@ -95,13 +98,34 @@ void InputsMenu::run(bool clear_cmd)
             std::cout<<" then Enter to finish)\n";
         }
         
-        // Check empty answer -neglected
-        // while (std::string(answer).length()==0)
-        
-        //converted to getline(string) to get unlimited characters + prevent minor problems
-        std::getline(std::cin, answer, end_char);
-        //std::cin.getline(answer, max_char_[i], end_char);
-        
+        // Check for:
+        // answer_type
+        // empty answer -neglected
+        while (true)
+        {
+            //converted to getline(string) to get unlimited characters + prevent minor problems
+            std::getline(std::cin, answer, end_char);
+            //std::cin.getline(answer, max_char_[i], end_char);
+
+            try
+            {
+                if(answer_type==0) //string
+                    break;
+                else if(answer_type==1) //check for int convert validation
+                    std::stoi(answer);
+                else if(answer_type==2) //double
+                    std::stod(answer);
+            }
+            catch(const std::exception& e)
+            {
+                std::cout<<"Please enter a valid answer: ";
+                if (end_char!='\n')
+                    std::cout<<"\n";
+                continue;
+            }
+
+            break;
+        }
         
         // if end_char != '\n' then the user need to press enter after end_char to apply it 
         // so we need to ignore characters between end_char and enter
