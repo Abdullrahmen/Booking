@@ -14,7 +14,14 @@ private:
     /// size: number of items in the itinerary.
     std::vector<bool> items_paid;
 
-    /// @brief If the itinerary paid (call pay method)
+    /* Changed to be in ItineraryItem info
+    /// @brief For deep copy method (if store_copy_info==false then it's empty):
+    /// vector 1 size: number of items.
+    /// vector 2 size depends on item type.
+    std::vector<std::vector<std::string>> copy_info;
+    */
+
+    /// @brief If the itinerary paid (pay method called)
     bool is_paid_;
 
     /// @brief Payment company (eg.PayPal)
@@ -22,8 +29,37 @@ private:
     
     /// @brief User's payment info
     PaymentInfo user_payment_;
+
+    /// @brief Allow copy constuctor
+    bool allow_copy_;
+
+    /// @brief Like copy constructor.
+    /// @param itinerary The itinerary which will get deep copy from.
+    void get_deep_copy_(const Itinerary& itinerary);
 public:
-    Itinerary();
+    /// @brief Constructor for Itinerary
+    /// @param allow_copy Allow copy constuctor (get_deep_copy method is always available) (Itinerary is a heavy object so it isn't recommended to copy it)
+    Itinerary(bool allow_copy= true);
+
+    /// @brief Copy constructor (Need allow_copy)
+    Itinerary(const Itinerary& itienrary);
+/*
+    bool operator == (const Itinerary& itinerary)
+    {
+        //if(!itinerary.allow_copy_)
+            //throw std::invalid_argument("Copy constructor called and allow_copy==false\nPlease use get_deep_copy method or change allow_copy to true.");
+    
+        //get_deep_copy_(itinerary);
+
+        if(this==&itinerary)
+            return true;
+        return false;
+    }
+*/
+    /// @brief Like copy constructor (this itinerary must be empty).
+    /// @param itinerary The itinerary which will get deep copy from.
+    void get_deep_copy(const Itinerary& itinerary);
+    void get_deep_copy(const Itinerary* itinerary);
 
     /// @return Number of items in the itinerary
     int get_number_of_items() const;
@@ -47,13 +83,13 @@ public:
     /// @brief Cancel reservations and (Future update) return money :)
     void cancel_pay();
 
-    /// @brief Print the details of every item in the itenerary.
-    void print() const;
+    /// @return Printing string shows the details of every item in the itenerary.
+    std::string print() const;
 
     /* Factory mehtods to create items */
     /// (all the items will be deleted in the destructor)
 
-    /// @brief Factory method to create hotel item     
+    /// @brief Factory method to create hotel item
     void add_hotel(const Room& room, int number_of_nights, const std::string& printing_info="");
 
     /// @brief Factory method to create flight item. 

@@ -1,12 +1,52 @@
 #include "Itinerary.h"
 
-Itinerary::Itinerary():
+Itinerary::Itinerary(bool allow_copy):
                 items(),
                 items_paid(),
                 is_paid_(false),
                 company_(""),
-                user_payment_()
+                user_payment_(),
+                allow_copy_(allow_copy)
 {}
+
+///start-> Copy constructor + deep copy methods
+
+void Itinerary::get_deep_copy_(const Itinerary& itinerary)
+{
+    if(items.size()!=0)
+        throw std::invalid_argument("The itinerary must be empty to get deep copy.");
+
+    for (auto i : itinerary.items)
+    {
+        this->items.push_back(i->clone());
+    }
+    items_paid= itinerary.items_paid;
+    is_paid_= itinerary.is_paid_;
+    company_= itinerary.company_;
+    user_payment_= itinerary.user_payment_;
+    allow_copy_= itinerary.allow_copy_;
+}
+
+
+Itinerary::Itinerary(const Itinerary& itinerary)
+{
+    if(!itinerary.allow_copy_)
+        throw std::invalid_argument("Copy constructor called and allow_copy==false\nPlease use get_deep_copy method or change allow_copy to true.");
+    
+    get_deep_copy_(itinerary);
+}
+
+void Itinerary::get_deep_copy(const Itinerary& itinerary)
+{
+    get_deep_copy_(itinerary);
+}
+
+void Itinerary::get_deep_copy(const Itinerary* const itinerary)
+{
+    get_deep_copy_(*itinerary);
+}
+
+/// End -> Copy constructor + deep copy methods
 
 int Itinerary::get_number_of_items() const
 {
@@ -103,7 +143,7 @@ void Itinerary::cancel_pay()
     is_paid_= false;    
 }
 
-void Itinerary::print() const
+std::string Itinerary::print() const
 {
     auto msg{std::string{}};
     if(is_paid_)
@@ -143,7 +183,7 @@ void Itinerary::print() const
     msg+= "##########################\n";    
     msg+= "Total Price: "+ std::to_string(get_total_cost())+"\n";
     msg+= "##########################\n";
-    std::cout<<msg;
+    return msg;
 }
 
 void Itinerary::add_hotel(const Room& room, int number_of_nights, const std::string& printing_info)
@@ -173,10 +213,13 @@ void Itinerary::remove_item(unsigned int idx)
 
 Itinerary::~Itinerary()
 {
-    for (auto i : items)
+    //for (int i = 0; i < items.size(); i++)
+    long long unsigned int size{items.size()};
+    for (int i = 0; i < size; i++)
     {
         //call the destructor of the children (because the base class' destructor is virtual) + free the heap memory 
-        delete i;
+        remove_item(0); //remove the first item and erase it till the vector cleared
     }
+
     items.clear();
 }

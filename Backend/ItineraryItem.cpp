@@ -19,11 +19,12 @@ ItineraryItemInfo::~ItineraryItemInfo(){}
 //ItineraryItem Class
 //////////////////
 
-std::string ItineraryItem::item_types[2]{"Hotel","Flight"};
+std::vector<std::string> ItineraryItem::item_types {"Hotel","Flight"};
 
-const std::string* ItineraryItem::get_item_types(){return &item_types[0];}
+ItineraryItem::ItineraryItem(){}
+const std::vector<std::string>& ItineraryItem::get_item_types(){return item_types;}
 const ItineraryItemInfo& ItineraryItem::get_info() const {return info;}
-void ItineraryItem::set_info(const ItineraryItemInfo& info) {this->info=info;}
+void ItineraryItem::set_info(ItineraryItemInfo info) {this->info=info;}
 
 ItineraryItem::~ItineraryItem(){}
 
@@ -39,9 +40,12 @@ HotelItem::HotelItem(const Room& room, int number_of_nights, const std::string& 
     set_info(ItineraryItemInfo{"Hotel", room.get_hotel(), printing_info});
 }
 
+
 bool HotelItem::reserve(){return hotel->reserve(room);}
 bool HotelItem::cancel_reserve(){return hotel->cancel_reserve(room);}
 std::vector<std::string> HotelItem::get_pay_info(){return hotel->get_pay_info(room,number_of_nights);}
+ItineraryItem* HotelItem::clone()
+{return new HotelItem(room, number_of_nights, this->get_info().get_printing_info());}
 
 HotelItem::~HotelItem()
 {
@@ -61,8 +65,10 @@ FlightItem::FlightItem(const Flight& flight, const std::string& printing_info):
 }
 
 bool FlightItem::reserve(){return airlines->reserve(flight);}
-bool FlightItem::cancel_reserve(){return airlines->reserve(flight);}
+bool FlightItem::cancel_reserve(){return airlines->cancel_reserve(flight);}
 std::vector<std::string> FlightItem::get_pay_info(){return airlines->get_pay_info(flight);}
+ItineraryItem* FlightItem::clone()
+{return new FlightItem(flight, this->get_info().get_printing_info());}
 
 FlightItem::~FlightItem()
 {
