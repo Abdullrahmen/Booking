@@ -13,6 +13,7 @@ private:
     std::vector<int> max_char_;
     std::vector<char> end_char_;
     std::vector<int> answer_type_;
+    std::vector<bool> allow_empty_;
     std::vector<std::string> answers;//same index as inputs.
     
     std::string header_str;
@@ -31,7 +32,7 @@ public:
     /// (if you want multiline input change end_char to something else eg. '$')
     /// @param max_char Max number of chars (the exceed will be ignored) (if it's 0 then it's unlimited)
     /// @param answer_type 0:string, 1:int, 2:double (check for convert validation)
-    void add_input(const std::string& input, char end_char=' ', int max_char=0, int answer_type=0);
+    void add_input(const std::string& input, char end_char=' ', int max_char=0, int answer_type=0, bool allow_empty=true);
 
     /// Later feature.
     //void add_multi_input() // eg. string is 'Ahmed,John,Sama' and return vector of string 
