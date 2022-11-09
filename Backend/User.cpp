@@ -1,4 +1,5 @@
 #include "User.h"
+#include <algorithm>
 
 /*temp customer data*/
 std::vector<LoginInfo> Data::customers_ {{"Reem","123"},{"Mohammed","123"}};
@@ -28,8 +29,8 @@ const std::vector<std::string>& Data::get_payment_methods()
 
 bool Data::add_customer(const LoginInfo& customer, const std::vector<PaymentInfo>& payments)
 {
-    if(payments.size()!=PaymentFactory::get_payment_methods().size())
-        throw std::invalid_argument("payments must be with the same order and size as get_payment_methods method in PaymentFactory class");
+    if(payments.size()!=Data::get_payment_methods().size())
+        throw std::invalid_argument("payments must be with the same order and size as get_payment_methods method");
     for (auto &i : customers_)
     {
         if(i.name==customer.name)
@@ -155,7 +156,7 @@ bool Admin::login(const LoginInfo& admin)
 bool Customer::register_(const LoginInfo& customer, std::vector<PaymentInfo>& payments)
 {
     //difference between the size of payments vector and the size of supported paymect methods.
-    auto difference{(int)payments.size() < (int)PaymentFactory::get_payment_methods().size()};
+    auto difference{(int)payments.size() < (int)Data::get_payment_methods().size()};
 
     if(difference<0)
         return false;
@@ -171,15 +172,25 @@ bool Customer::login(const LoginInfo& customer)
     return verify_login(customer, "Customer");
 }
 
-void Customer::add_itinerary(const Itinerary& itinerary)
+Itinerary* Customer::new_itinerary()
 {
     if(!is_login())
         throw std::invalid_argument("You can't add itinerary before login.");
 
-    get_itineraries().push_back(itinerary);
+    auto &v{get_itineraries()};
+
+    /// Every time you push_back in a vector this will call copy constructor then destructor for all his items
+    /// (heavy process so need to convert the vector to vector of pointers) // Future update
+    v.push_back(Itinerary{});
+
+    auto p_{v.data()};
+
+    p_ + v.size() - 1;
+    std::cout<<"Hello";
+    return p_ + v.size() - 1 ; //return last element's pointer
 }
 
-Itinerary& Customer::get_itinerary(unsigned int idx)
+Itinerary* Customer::get_itinerary(unsigned int idx)
 {
     if(!is_login())
         throw std::invalid_argument("You can't get itinerary before login.");
@@ -187,7 +198,7 @@ Itinerary& Customer::get_itinerary(unsigned int idx)
     if(idx > get_itineraries().size()-1)
         throw std::invalid_argument("Invalid index");
         
-    return get_itineraries()[idx];
+    return &(get_itineraries()[idx]);
 }
 
 void Customer::remove_itinerary(unsigned int idx)
@@ -195,20 +206,49 @@ void Customer::remove_itinerary(unsigned int idx)
     if(!is_login())
         throw std::invalid_argument("You can't remove itinerary before login.");
 
-    auto &v {get_itineraries()};
+    //Major bug: (will be fine if Itinerary class has operator= -Future update)
+    //Temp fix (converting to vector of pointers is the best solution + efficiency)
+    /*
+    -> https://stackoverflow.com/questions/58436436/wrong-destructor-called-by-vector-erase
+    vec.erase(vec.begin()); does not destruct the first element.
+    It overwrites it by shifting all of the subsequent ones by one place,
+    using either the move- or copy-assignment operator.
+    What remains of the last element after it has been moved from is then destructed,
+    which is what you're observing.
+    */
+    
+    //Deep copy twice
+    //Bad + temp design (-Important future update - convert the vector to vector of pointers)
+    auto v {get_itineraries()};
     if(idx > v.size()-1)
         throw std::invalid_argument("Invalid index");
-
-    v.erase(v.begin()+idx);
+    std::vector<Itinerary> v2{v.begin()+idx+1, v.end()};
+    get_itineraries() = {v.begin(), v.begin()+idx};
+    get_itineraries().insert(get_itineraries().end(),v2.begin(),v2.end());
 }
 
-void Customer::print_itineraries() const
+void Customer::remove_itinerary(Itinerary* p_itinerary)
+{
+    if(!is_login())
+        throw std::invalid_argument("You can't remove itinerary before login.");
+
+    auto &v {get_itineraries()};
+
+    auto idx {p_itinerary - v.data()};
+    if(idx > v.size()-1 || idx<0)
+        throw std::invalid_argument("Invalid pointer");
+
+
+    v.erase(v.begin() + idx); //itineraries aren't in the heap (for now) so we can just erase it
+}
+
+void Customer::print_itineraries() 
 {
     if(!is_login())
         throw std::invalid_argument("You can't print itineraries before login.");
 
-    for (auto &i : get_const_itineraries())
+    for (auto &i : get_itineraries())
     {
-        i.print();
+        std::cout<<i.print();
     }
 }

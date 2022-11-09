@@ -41,7 +41,7 @@ public:
     static const std::vector<std::string>& get_payment_methods();
     /// @brief Sign up a new customer
     /// @param customer Login customer data(name, password)
-    /// @param payments Payment methods (must be with the same order and size as get_payment_methods method in PaymentFactory class)
+    /// @param payments Payments methods info(must be with the same order and size as get_payment_methods method)
     /// @return True if successfully added
     static bool add_customer(const LoginInfo& customer, const std::vector<PaymentInfo>& payments);
     /// @brief Sign up a new admin.
@@ -63,6 +63,8 @@ private:
     /// @brief Customer special data. (this is bad design because there are data for specific child)
     /// (if itineraries and payments converted to string or json I won't need a specific user type data here (maybe in the future updates))
     std::vector<Itinerary> itineraries;
+    //std::vector<Itinerary> itineraries; //Future update
+
     /// @brief {PayPal, Stripe} with same order and size (unavailable will be empty PaymentInfo)
     std::vector<PaymentInfo> payments;
 
@@ -121,19 +123,22 @@ public:
     
     /* Access after login */
 
-    /// @brief Add new itinerary to the user.
-    void add_itinerary(const Itinerary& itinerary);
+    /// @brief Add a new itinerary to the user.
+    /// Please use remove_itinerary if you want to delete the itinerary (don't delete it manually)
+    /// @return A pointer to the itinerary
+    Itinerary* new_itinerary();
 
     /// @brief Warning: changeable (with reference).
     /// Please use remove_itinerary if you want to delete the itinerary (don't delete it manually)
     /// @param idx index of the itinerary.
-    /// @return 
-    Itinerary& get_itinerary(unsigned int idx);
+    /// @return A pointer to the itinerary
+    Itinerary* get_itinerary(unsigned int idx);
     
     /// @brief Delete itinerary from the user.
     void remove_itinerary(unsigned int idx);
+    void remove_itinerary(Itinerary* p_itinerary);
 
-    void print_itineraries() const;
+    void print_itineraries() ;
 };
 
 #endif // User_H_
