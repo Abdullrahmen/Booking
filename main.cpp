@@ -1,8 +1,15 @@
+/*
+Contains:
+* Base loop
+* Sign up
+* Login
+*/
+
 #include "Views.cpp"
 
 bool login()
 {
-    std::cout<<"\033[2J\033[1;1H";//clear cmd
+    clear_cmd_();//clear cmd
 
     //Options menu to get logined user type menu.
     OptionsMenu user_type_menu;
@@ -18,7 +25,7 @@ bool login()
     auto error_msg{std::string{""}};
     while (true)
     {
-        std::cout<<"\033[2J\033[1;1H";//clear cmd
+        clear_cmd_();//clear cmd
         std::cout<<error_msg;
         error_msg="";
 
@@ -62,7 +69,7 @@ bool login()
 
 bool sign_up()
 {
-    std::cout<<"\033[2J\033[1;1H";//clear cmd
+    clear_cmd_();//clear cmd
     /*Options menu to get logined user type menu.*/
     OptionsMenu user_type_menu;
 
@@ -79,7 +86,7 @@ bool sign_up()
     //Sign up loop
     while (true)
     {
-        std::cout<<"\033[2J\033[1;1H";//clear cmd
+        clear_cmd_();//clear cmd
         std::cout<<error_msg;
         error_msg="";//reset error message
 
@@ -174,12 +181,12 @@ int main()
 {
     //Base menu.
     OptionsMenu menu;
-    
+
     menu.add_option("Login", login);
     menu.add_option("Sign up", sign_up);
     menu.add_option("Exit", pre_menu);
 
     while(menu.run());//Base app loop.
-
     return 0;
+
 }

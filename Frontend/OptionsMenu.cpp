@@ -1,6 +1,8 @@
 #include "OptionsMenu.h"
 #include <algorithm>
 #include <limits>
+#include "Utils.cpp"
+
 //////////////////
 //OptionsMenu Class
 //////////////////
@@ -53,7 +55,7 @@ bool OptionsMenu::run(bool clear_cmd, bool func_call)
         throw std::invalid_argument("Must add at least one option before run the menu.");
 
     if(clear_cmd)
-        std::cout << "\033[2J\033[1;1H";
+        clear_cmd_();
 
     std::cout<< header_str;
 

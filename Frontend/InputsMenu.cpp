@@ -1,5 +1,6 @@
 #include "InputsMenu.h"
 #include <algorithm>
+#include "Utils.cpp"
 
 //////////////////
 //InputsMenu Class
@@ -54,7 +55,7 @@ void InputsMenu::run(bool clear_cmd)
         throw std::invalid_argument("Must add at least one input before run the menu.");
 
     if(clear_cmd)
-        std::cout << "\033[2J\033[1;1H";
+        clear_cmd_();
     std::cout<< header_str;
 
     char symbols[]{'\n','\t'};
