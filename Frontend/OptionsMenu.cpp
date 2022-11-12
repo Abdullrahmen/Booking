@@ -1,5 +1,8 @@
 #include "OptionsMenu.h"
 #include <algorithm>
+#include <limits>
+#include "Utils.cpp"
+
 //////////////////
 //OptionsMenu Class
 //////////////////
@@ -52,7 +55,7 @@ bool OptionsMenu::run(bool clear_cmd, bool func_call)
         throw std::invalid_argument("Must add at least one option before run the menu.");
 
     if(clear_cmd)
-        std::cout << "\033[2J\033[1;1H";
+        clear_cmd_();
 
     std::cout<< header_str;
 
@@ -67,9 +70,13 @@ bool OptionsMenu::run(bool clear_cmd, bool func_call)
     {
         try
         {
-            std::cin >> choosed_number_;
-            choosed_number= std::stoi(choosed_number_)-1;//to make it zero based.
-            
+            std::getline(std::cin, choosed_number_);
+
+            if(choosed_number_.length()<=0) //the user didn't type anything
+                throw std::invalid_argument("Invalid choosed number.");
+
+
+            choosed_number= std::stoi(choosed_number_)-1;// -1 to make it zero based.
             if(choosed_number<0 || choosed_number>options.size()-1)
                 throw std::invalid_argument("Invalid choosed number.");
         }
@@ -102,6 +109,11 @@ func_ptr OptionsMenu::get_choosed_func()const
         throw std::invalid_argument("Must run the menu before call get_choosed_func method.");
 
     return options_funcs[choosed_number];
+}
+
+int OptionsMenu::get_choosed_number()const
+{
+    return choosed_number+1;//to return it to 1 based
 }
 
 OptionsMenu::~OptionsMenu(){}

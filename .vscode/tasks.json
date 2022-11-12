@@ -14,7 +14,7 @@
                 "${workspaceFolder}\\Backend\\online_APIs\\*.cpp",
                 "${workspaceFolder}\\Backend\\*.cpp",
                 "${workspaceFolder}\\Frontend\\*.cpp",
-                "${workspaceFolder}\\*.cpp",
+                "${workspaceFolder}\\main.cpp",//all other cpps here are sub from main
                 "-o",
                 "${workspaceFolder}\\Expedia.exe"
             ],

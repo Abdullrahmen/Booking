@@ -48,6 +48,7 @@ public:
     const std::string& get_expire_date() const;
     const int& get_ccv() const;
 
+    const bool is_empty() const;
     ~PaymentInfo();
 };
 
@@ -80,11 +81,11 @@ class PaymentFactory
 {
 private:
     //Supported payment methods
-    static std::string payment_methods[2];
+    static std::vector<std::string> payment_methods;
 public:
     static payment_::IPayment* create_payment_helper(const std::string& payment_method);
     //Supported payment methods
-    static const std::string* get_payment_methods();
+    static const std::vector<std::string>& get_payment_methods();
 };
 
 #endif //Payment_H_
