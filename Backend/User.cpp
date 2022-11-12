@@ -247,8 +247,11 @@ void Customer::print_itineraries()
     if(!is_login())
         throw std::invalid_argument("You can't print itineraries before login.");
 
-    for (auto &i : get_itineraries())
+    auto &its{get_itineraries()};
+    for (int i = 0; i < (int)its.size(); i++)
     {
-        std::cout<<i.print();
+        std::cout<<its[i].print();
+        if(i!=its.size()-1)
+            std::cout<<"\n";
     }
 }

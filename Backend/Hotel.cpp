@@ -14,7 +14,7 @@ Room::Room(const HiltonRoom& room):
     date_to(room.get_date_to()), cost_per_night(room.get_cost_per_night()){}
 
 Room::Room(const MarriottFoundRoom& room):
-    hotel("Mariott"), room_type(room.get_room_type()), date_from(room.get_date_from()),
+    hotel("Marriott"), room_type(room.get_room_type()), date_from(room.get_date_from()),
     date_to(room.get_date_to()), cost_per_night(room.get_cost_per_night()){}
 
 HiltonRoom Room::to_HiltonRoom() const
@@ -78,9 +78,9 @@ std::vector<Room> MarriottHotel::find_rooms(const std::string& country,
                                             const int& children)
 {
     std::vector<Room> rooms{};
-    for (auto &mariott_room : MarriottHotelAPI::FindRooms(country,city,date_from,date_to,adults,children))
+    for (auto &marriott_room : MarriottHotelAPI::FindRooms(country,city,date_from,date_to,adults,children))
     {
-        rooms.push_back(Room(mariott_room));
+        rooms.push_back(Room(marriott_room));
     }
     return rooms;
 }

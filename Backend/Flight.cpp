@@ -59,8 +59,8 @@ std::vector<Flight> flight_::AirCanada::get_available_flights() const
     try
     {
         //invalid arguments
-        if(this->adults<=0)
-            throw std::invalid_argument("Adults in a flight can't be <=0");
+        //if(this->adults<=0)
+            //throw std::invalid_argument("Adults in a flight can't be <=0");
         if(this->datetime_from=="")
             throw std::invalid_argument("Please set from date/time before call get_available_flights");
         if(this->datetime_to=="")

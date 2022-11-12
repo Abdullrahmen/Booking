@@ -163,30 +163,31 @@ std::string Itinerary::print() const
     {
         auto pay_info {items[i]->get_pay_info()};
         auto info {items[i]->get_info()};
-        msg+= "----------------------------\n";
+        msg+= "----------------------\n";
         
         if(is_paid_)
             if(items_paid[i])
-                msg+= "=-=-=-=- Paid -=-=-=-=\n";
+                msg+= "=-=-= Item  Paid =-=-=\n";
             else
-                msg+= "=+=+=+ Not Paid +=+=+=\n";
+                msg+= "=+= Item  Not Paid =+=\n";
         else
-            msg+= "=+=+=+ Not Paid +=+=+=\n";
+            msg+= "=+= Item  Not Paid =+=\n";
 
         msg+= "Type and company: " + info.get_item_type()+" -> "+info.get_item_company()+"\n";
         msg+= "Service: " + pay_info[2] +"\n";
-        msg+= "Price: " + pay_info[1] +"\n";
+        msg+= "Price: " + pay_info[1].erase(pay_info[1].length()-4) +"\n";
 
         if(info.get_printing_info()!="")
             msg+= "More info: " + info.get_printing_info() + "\n";
     }
-    msg+= "##########################\n";    
-    msg+= "Total Price: "+ std::to_string(get_total_cost())+"\n";
-    msg+= "##########################\n";
+    msg+= "----------------------\n";
+    msg+= "######################\n";    
+    msg+= "Total Price: "+ std::to_string(get_total_cost()).erase(std::to_string(get_total_cost()).length()-4)+"\n";
+    msg+= "######################\n";
     return msg;
 }
 
-void Itinerary::add_hotel(const Room& room, int number_of_nights, const std::string& printing_info)
+void Itinerary::add_room(const Room& room, int number_of_nights, const std::string& printing_info)
 {
     items.push_back(new items_::HotelItem{room, number_of_nights, printing_info});
     items_paid.push_back(false);

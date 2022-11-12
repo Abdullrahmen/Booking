@@ -89,8 +89,8 @@ public:
     /* Factory mehtods to create items */
     /// (all the items will be deleted in the destructor)
 
-    /// @brief Factory method to create hotel item
-    void add_hotel(const Room& room, int number_of_nights, const std::string& printing_info="");
+    /// @brief Factory method to create room item
+    void add_room(const Room& room, int number_of_nights, const std::string& printing_info="");
 
     /// @brief Factory method to create flight item. 
     void add_flight(const Flight& flight, const std::string& printing_info="");
