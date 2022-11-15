@@ -16,7 +16,7 @@
                 "${workspaceFolder}\\Frontend\\*.cpp",
                 "${workspaceFolder}\\main.cpp",//all other cpps here are sub from main
                 "-o",
-                "${workspaceFolder}\\Expedia.exe"
+                "${workspaceFolder}\\Booking.exe"
             ],
             "options": {
                 "cwd": "${fileDirname}"
