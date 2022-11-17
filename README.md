@@ -22,7 +22,7 @@ Hi, I'm Abdullrahmen, and I'm happy to introduce you to my project -Multitype bo
 But before I get started, what is a booking system?
 
 A booking system is an interface that allows people to easily choose, reserve, and pay for items(e.g. flights, hotel rooms) from different companies,
-and collects different items in a container called an itinerary that can be paid for, reserved, modified, etc...
+and stores different items in a container called an itinerary that can be paid for, reserved, modified, etc...
 
 The main difference between my project and a real one is that the real one has real online APIs (I will convert mine to real ones in a future update -I hope).
 ### Backend
@@ -40,7 +40,7 @@ We can say that there are five primary steps here:
 2. **interface for payment companies**
     > same as step one but for payment companies
 3. **Create an itinerary to store items**
-    * Containing factory methods to add items and delete them in the destructor, so the programmer doesn't need to worry about items' memory management.
+    * Containing factory methods to add items, and delete them in the destructor, so the programmer doesn't need to worry about items' memory management.
     * Use the payment interface to pay for items.
 4. **Create a user class that stores itineraries**
     > Actually, it has to be in frontend, but because I put it in the Backend folder, I'll write it here.
@@ -68,7 +68,7 @@ We can say that there are five primary steps here:
 -   Sign up payment info check (in payments APIs, payment interface, Itinerary::pay, and frontend sign up)
 -   Add more functionalities in payments
 -   Separate login info and create a user profile
--   Convert itineraries and payment info to string to store it in one table
+-   Convert itineraries and payment info to string to store them in one table
 -   Store data in a separate file (database)
 -   Remove_item in Itinerary class and customer view
 -   If a reservation fail after the payment is successful, refund the money and cancel the payment
