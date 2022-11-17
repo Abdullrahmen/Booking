@@ -1,12 +1,12 @@
 # Multitype Booking System
 > Multitype booking system (like expedia.com and booking.com) core.
 
--   [About Project](https://github.com/Abdullrahmen/Booking/new/main?readme=1#about-project)
-    -   [Backend](https://github.com/Abdullrahmen/Booking/new/main?readme=1#backend)
-    -   [Frontend](https://github.com/Abdullrahmen/Booking/new/main?readme=1#frontend)
-    -   [Class diagram](https://github.com/Abdullrahmen/Booking/new/main?readme=1#class-diagram)
--   [Future updates](https://github.com/Abdullrahmen/Booking/new/main?readme=1#future-updates)
--   [License](https://github.com/Abdullrahmen/Booking/new/main?readme=1#license)
+-   [About Project](https://github.com/Abdullrahmen/Booking/edit/main/README.md#about-project)
+    -   [Backend](https://github.com/Abdullrahmen/Booking/edit/main/README.md#backend)
+    -   [Frontend](https://github.com/Abdullrahmen/Booking/edit/main/README.md#frontend)
+    -   [Class diagram](https://github.com/Abdullrahmen/Booking/edit/main/README.md#class-diagram)
+-   [Future updates](https://github.com/Abdullrahmen/Booking/edit/main/README.md#future-updates)
+-   [License](https://github.com/Abdullrahmen/Booking/edit/main/README.md#license)
 
 **Latest release**: 
 [Booking.v1.0.exe](https://github.com/Abdullrahmen/Booking/releases/download/v1.0/Booking.v1.0.exe)
