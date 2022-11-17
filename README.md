@@ -8,6 +8,8 @@
 -   [Future updates](https://github.com/Abdullrahmen/Booking/new/main?readme=1#future-updates)
 -   [License](https://github.com/Abdullrahmen/Booking/new/main?readme=1#license)
 
+**Latest release**: 
+[Booking.v1.0.exe](https://github.com/Abdullrahmen/Booking/releases/download/v1.0/Booking.v1.0.exe)
 
 # About Project
 >Interfaces and APIs, polymorphism, encapsulation, basic design patterns, and more, all with pure c++ raw pointers.
@@ -48,7 +50,7 @@ We can say that there are five primary steps here:
 * User login/sign up
 * List available items according to filters
 * Create/modify/remove itineraries
-
+* I made two classes for cmd menus and will move them to another cmd tools repository soon
 ### Class diagram
 
 **Before I started the project, I made my first class diagram to put my main ideas in, and it had many return types and parameters mistakes, but at least it'll give you an idea of how the interfaces and classes link to each other:**
