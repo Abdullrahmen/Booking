@@ -7,9 +7,9 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${workspaceFolder}\\Backend\\online_APIs\\*.h",
-                "${workspaceFolder}\\Backend\\*.h",
-                "${workspaceFolder}\\Frontend\\*.h",
+                //"${workspaceFolder}\\Backend\\online_APIs\\*.h",
+                //"${workspaceFolder}\\Backend\\*.h",
+                //"${workspaceFolder}\\Frontend\\*.h",
                 //"${workspaceFolder}\\*.h",
                 "${workspaceFolder}\\Backend\\online_APIs\\*.cpp",
                 "${workspaceFolder}\\Backend\\*.cpp",
