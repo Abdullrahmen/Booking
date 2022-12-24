@@ -9,17 +9,15 @@
 -   [License](https://github.com/Abdullrahmen/Booking#license)
 
 **Latest release**: 
+> Confirmed in Windows 10 64 bit, compiled by g++
+
 [Booking.v1.0.exe](https://github.com/Abdullrahmen/Booking/releases/download/v1.0/Booking.v1.0.exe)
 
 # About Project
->Interfaces and APIs, polymorphism, encapsulation, basic design patterns, and more, all with pure c++ raw pointers.
-
-
-
 Hi, I'm Abdullrahmen, and I'm happy to introduce you to my project -Multitype booking system-.
 > From calling APIs through making interfaces to creating factory methods, this project is a simulation of the process in the real world.
 
-But before I get started, what is a booking system?
+But before we get started, what is a booking system?
 
 A booking system is an interface that allows people to easily choose, reserve, and pay for items(e.g. flights, hotel rooms) from different companies,
 and stores different items in a container called an itinerary that can be paid for, reserved, modified, etc...
@@ -79,6 +77,7 @@ We can say that there are five primary steps here:
 -   In OptionsMenu add the ability to disable an option (but still visible) (Used in cases like upcoming features)
 -   Convert cli to gui
 -   Make the admin part
+-   Convert raw pointers to smart.
 -   etc...
 
 
