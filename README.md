@@ -83,4 +83,4 @@ We can say that there are five primary steps here:
 
 
 # License
-**CC0 (Do whatever you want with the code) :)**
+**MPL-2.0 license**
