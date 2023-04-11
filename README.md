@@ -11,7 +11,7 @@
 **Latest release**: 
 > Confirmed in Windows 10 64 bit, compiled by g++
 
-[Booking.v1.0.exe](https://github.com/Abdullrahmen/Booking/releases/download/v1.0/Booking.v1.0.exe)
+[Booking.v1.0.exe](https://github.com/Abdullrahmen/Booking/releases/download/v1.0/Booking_v1.0.exe)
 
 # About Project
 Hi, I'm Abdullrahmen, and I'm happy to introduce you to my project -Multitype booking system-.
